@@ -1,4 +1,4 @@
-package com.lds.student_currency_system.api.model;
+package com.lds.student_currency_system.application.domain.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -11,40 +11,45 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
 import java.util.Date;
 
 @Entity
-@Table(name = "transfers")
+@Table(name = "advantages")
 @Getter
 @Setter
 @NoArgsConstructor
-public class Transfer {
-
-    public Transfer(Date day, User transactor, float value, String type, String description) {
-        this.day = day;
-        this.transactor = transactor;
-        this.value = value;
-        this.type = type;
-        this.description = description;
-    }
+public class Advantage {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(nullable = false)
-    private Date day;
+    private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "transactor_id", nullable = false)
-    private User transactor;
+    @Column(nullable = false)
+    private String image;
 
     @Column(nullable = false)
     private float value;
 
-    @Column(nullable = false)
-    private String type;
+    @ManyToOne
+    @JoinColumn(name = "company_id", nullable = false)
+    private Company company;
 
     @Column(nullable = false)
     private String description;
+
+    @Column(nullable = false)
+    private Date date;
+
+    public Advantage(String name, String image, float value, Company company, String description, Date date) {
+        this.name = name;
+        this.image = image;
+        this.value = value;
+        this.company = company;
+        this.description = description;
+        this.date = date;
+    }
 }

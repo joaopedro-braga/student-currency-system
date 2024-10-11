@@ -1,4 +1,4 @@
-package com.lds.student_currency_system.api.model;
+package com.lds.student_currency_system.application.domain.model;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
