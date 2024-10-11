@@ -5,9 +5,9 @@
 <br>
 <p align="center">
  <a href="#MeritCoin"> Introducion </a> •
- <a href="##Group-Members"> Group Members </a> • 
- <a href="##Description"> Description </a> • 
- <a href="##Documentation"> Documentation </a>
+ <a href="#Group-Members"> Group Members </a> • 
+ <a href="#Description"> Description </a> • 
+ <a href="#Documentation"> Documentation </a>
 </p>
 
 # MeritCoin
