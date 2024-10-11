@@ -12,9 +12,9 @@ class TransferTest {
         Professor professor = new Professor("Professor Name", "prof@example.com", "profpass", "12345678901", "Department", new Institution("Institution name"), 100.0f);
         Date date = new Date();
         Transfer transfer = new Transfer(date, professor, 50.0f, "Donation", "Test transfer");
-        assertEquals(date, transfer.getDay());
+        assertEquals(date, transfer.getDate());
         assertEquals(professor, transfer.getTransactor());
-        assertEquals(50.0f, transfer.getValue());
+        assertEquals(50.0f, transfer.getCoinQuantity());
         assertEquals("Donation", transfer.getType());
         assertEquals("Test transfer", transfer.getDescription());
     }

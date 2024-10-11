@@ -20,10 +20,10 @@ import java.util.Date;
 @NoArgsConstructor
 public class Transfer {
 
-    public Transfer(Date day, User transactor, float value, String type, String description) {
-        this.day = day;
+    public Transfer(Date date, User transactor, float coinQuantity, String type, String description) {
+        this.date = date;
         this.transactor = transactor;
-        this.value = value;
+        this.coinQuantity = coinQuantity;
         this.type = type;
         this.description = description;
     }
@@ -33,14 +33,14 @@ public class Transfer {
     private Long id;
 
     @Column(nullable = false)
-    private Date day;
+    private Date date;
 
     @ManyToOne
     @JoinColumn(name = "transactor_id", nullable = false)
     private User transactor;
 
-    @Column(nullable = false)
-    private float value;
+    @Column(name = "coin_quantity", nullable = false)
+    private float coinQuantity;
 
     @Column(nullable = false)
     private String type;

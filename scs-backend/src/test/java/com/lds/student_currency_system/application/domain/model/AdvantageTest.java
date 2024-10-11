@@ -14,7 +14,7 @@ class AdvantageTest {
         Advantage advantage = new Advantage("Discount", "image.jpg", 25.0f, company, "10% off", date);
         assertEquals("Discount", advantage.getName());
         assertEquals("image.jpg", advantage.getImage());
-        assertEquals(25.0f, advantage.getValue());
+        assertEquals(25.0f, advantage.getPrice());
         assertEquals(company, advantage.getCompany());
         assertEquals("10% off", advantage.getDescription());
         assertEquals(date, advantage.getDate());

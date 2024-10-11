@@ -16,10 +16,15 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private InstitutionRepository institutionRepository;
 
     @Test
     void testFindByEmail() {
-        Professor professor = new Professor("Test Professor", "test@example.com", "password", "12345678901", "Department", new Institution("Institution name"), 100.0f);
+        Institution institution = new Institution("Institution name");
+        institutionRepository.save(institution);
+
+        Professor professor = new Professor("Test Professor", "test@example.com", "password", "12345678901", "Department", institution, 100.0f);
         userRepository.save(professor);
 
         Optional<User> foundUser = userRepository.findByEmail("test@example.com");

@@ -32,7 +32,7 @@ public class Advantage {
     private String image;
 
     @Column(nullable = false)
-    private float value;
+    private float price;
 
     @ManyToOne
     @JoinColumn(name = "company_id", nullable = false)
@@ -44,10 +44,10 @@ public class Advantage {
     @Column(nullable = false)
     private Date date;
 
-    public Advantage(String name, String image, float value, Company company, String description, Date date) {
+    public Advantage(String name, String image, float price, Company company, String description, Date date) {
         this.name = name;
         this.image = image;
-        this.value = value;
+        this.price = price;
         this.company = company;
         this.description = description;
         this.date = date;
