@@ -198,6 +198,11 @@ I want to create, read, update, and delete advantages
 so that I can manage the available rewards for students. 
 ```
 
+### Class Diagram
+
+![Class Diagram](docs/images/ClassDiagram.png)
+[Access Figma](https://www.figma.com/board/gKozuKilj9F7aWZRacTXJz/Class-Diagram---MeritCoin?node-id=0-1&t=opClSieNatKHDaCx-1)
+
 ### Package Diagram
 
 ![Package Diagram](docs/images/PackageDiagram.png)
