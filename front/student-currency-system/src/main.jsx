@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom"; // Correção das importações
-
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { ChakraProvider } from "@chakra-ui/react"; // Importação do ChakraProvider
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
 import "./index.css";
@@ -11,6 +11,7 @@ import SignUpPartnerCompany from "./routes/SignUpPartnerCompany.jsx";
 import SignIn from "./routes/SignIn.jsx";
 import SignUp from "./routes/SignUp.jsx";
 
+// Definição das rotas
 const router = createBrowserRouter([
   {
     path: "/",
@@ -34,9 +35,13 @@ const router = createBrowserRouter([
   },
 ]);
 
-
+// Renderização do app
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />
+    <ChakraProvider>
+      {/* ChakraProvider para integrar os estilos do Chakra UI */}
+      <RouterProvider router={router} />
+    </ChakraProvider>
   </StrictMode>
 );
+ 
