@@ -1,10 +1,11 @@
 import React from "react";
 
-const SignIn = () => {
-    return(
-        <>
-        </>
-    )
-}
+const SignUp = () => {
+  return (
+    <>
+      <h1>kjfnvkj</h1>
+    </>
+  );
+};
 
-export default SignIn;
+export default SignUp;

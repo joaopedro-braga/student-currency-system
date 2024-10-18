@@ -10,7 +10,7 @@ import {
   InputLeftElement,
   Input,
   InputRightElement,
-  Link,
+  Link
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import bg from "../img/bg.png";
@@ -99,10 +99,10 @@ const SignIn = () => {
                   display: "flex",
                   justifyContent: "space-between",
                   alignItems: "center",
-                  marginBottom: "40px", // Para adicionar espaço abaixo do botão
-                  width: "100%", // Para que o conteúdo ocupe a largura total
-                  paddingLeft: "80px", // Para manter o alinhamento à esquerda do link
-                  paddingRight: "60px", // Para manter o alinhamento à direita do botão
+                  marginBottom: "40px",
+                  width: "100%",
+                  paddingLeft: "80px",
+                  paddingRight: "60px",
                 }}
               >
                 <Link>Forgot your password?</Link>
@@ -110,6 +110,7 @@ const SignIn = () => {
                   style={{
                     backgroundColor: "#E11138",
                     color: "white",
+                    borderRadius: "12px",
                   }}
                   sx={{
                     _hover: { borderColor: "#E11138" },
@@ -129,7 +130,12 @@ const SignIn = () => {
               bgImage={`url(${bg})`}
               bgRepeat="no-repeat"
               bgSize="cover"
-              style={{ borderRadius: "20px", padding: "30px", margin: "5px" , paddingTop: "80px"}}
+              style={{
+                borderRadius: "20px",
+                padding: "30px",
+                margin: "5px",
+                paddingTop: "80px",
+              }}
             >
               <h1
                 style={{
@@ -173,6 +179,7 @@ const SignIn = () => {
                     marginRight: "30px",
                     marginTop: "20px",
                     marginBottom: "40px",
+                    borderRadius: "12px",
                   }}
                 >
                   Sign Up
