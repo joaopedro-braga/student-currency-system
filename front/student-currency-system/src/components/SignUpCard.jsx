@@ -12,7 +12,6 @@ import {
   InputRightElement,
   Link,
 } from "@chakra-ui/react";
-import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import bg from "../img/bg.png";
 import SignUpForms from "./SignUpForms";
 import SignUpStudent from "./SignUpStudent";
@@ -90,7 +89,7 @@ const SignUpCard = () => {
                 justifyContent="center"
                 alignItems="flex-start"
               >
-                <SignUpCompany></SignUpCompany>
+                <SignUpForms></SignUpForms>
               </Box>
             </Grid>
           </CardBody>
