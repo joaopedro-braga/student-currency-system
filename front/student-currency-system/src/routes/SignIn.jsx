@@ -10,7 +10,7 @@ import {
   InputLeftElement,
   Input,
   InputRightElement,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import bg from "../img/bg.png";

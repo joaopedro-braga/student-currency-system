@@ -1,9 +1,10 @@
 import React from "react";
+import SignUpCard from "../components/SignUpCard";
 
 const SignUp = () => {
   return (
     <>
-      <h1>kjfnvkj</h1>
+      <SignUpCard />
     </>
   );
 };
