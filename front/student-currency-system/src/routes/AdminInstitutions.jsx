@@ -48,6 +48,9 @@ const AdminInstitutions = () => {
             borderRadius="8px"
             padding="30px"
             textAlign="center"
+            display="flex"
+            flexDirection="column"
+            justifyContent={["center", "center", "center", "center"]}
           >
             <h1 style={{ fontSize: "30px", color: "white", fontWeight: "700" , marginBottom: "24px"}}>
               Institution Registration
@@ -62,7 +65,7 @@ const AdminInstitutions = () => {
               onClick={onOpen}
               style={{ fontSize: "18px", fontWeight: "600" }}
             >
-              Sign Up!
+              Register Institution
             </Button>
           </Box>
 
@@ -179,6 +182,8 @@ const AdminInstitutions = () => {
                           backgroundColor="white"
                           color="#E11138"
                           margin="8px"
+                          marginLeft="0"
+                          paddingLeft="0"
                         >
                           <FiEdit />
                         </Button>
