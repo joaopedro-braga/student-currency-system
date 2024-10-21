@@ -12,7 +12,6 @@ import FormGroup from "@mui/material/FormGroup";
 import MenuItem from "@mui/material/MenuItem";
 import Menu from "@mui/material/Menu";
 import { LuUserCircle2 } from "react-icons/lu";
-
 import {
   Button,
   Drawer,
@@ -22,14 +21,15 @@ import {
   DrawerOverlay,
   useDisclosure,
 } from "@chakra-ui/react";
-
 import Logo from "../img/Logo.png";
-
 import { IoChevronDown } from "react-icons/io5";
+import { useNavigate } from "react-router-dom"; // Importando o useNavigate
 
 const NavBar = () => {
   const [auth, setAuth] = React.useState(true);
   const [anchorEl, setAnchorEl] = React.useState(null);
+  const navigate = useNavigate(); // Usando o useNavigate para navegação
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
   const handleChange = (event) => {
     setAuth(event.target.checked);
@@ -43,7 +43,41 @@ const NavBar = () => {
     setAnchorEl(null);
   };
 
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Funções de navegação para cada rota
+  const goToAdminInstitutions = () => {
+    navigate("/admin-institutions");
+    onClose(); // Fechar o drawer ao navegar
+  };
+
+  const goToAdminProfessors = () => {
+    navigate("/admin-professors");
+    onClose();
+  };
+
+  const goToAdminBenefits = () => {
+    navigate("/admin-benefits");
+    onClose();
+  };
+
+  const goToPartnerCompanyBenefits = () => {
+    navigate("/partner-company-benefits");
+    onClose();
+  };
+
+  const goToStudentBalance = () => {
+    navigate("/student-balence");
+    onClose();
+  };
+
+  const goToStudentBenefits = () => {
+    navigate("/student-benefits");
+    onClose();
+  };
+
+  const goToStudentVouchers = () => {
+    navigate("/student-vouchers");
+    onClose();
+  };
 
   return (
     <>
@@ -83,17 +117,50 @@ const NavBar = () => {
                   </DrawerHeader>
                   <DrawerBody>
                     {/* Menu admin */}
-                    <p style={{ margin: "5px" }}>Institutions</p>
-                    <p style={{ margin: "5px" }}>Professors</p>
-                    <p style={{ margin: "5px" }}>Benfits</p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToAdminInstitutions}
+                    >
+                      Institutions
+                    </p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToAdminProfessors}
+                    >
+                      Professors
+                    </p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToAdminBenefits}
+                    >
+                      Benefits
+                    </p>
                     {/* Menu partner company */}
-                    <p style={{ margin: "5px" }}>Registred Benfits</p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToPartnerCompanyBenefits}
+                    >
+                      Registered Benefits
+                    </p>
                     {/* Menu student */}
-                    <p style={{ margin: "5px" }}>Balance</p>
-                    <p style={{ margin: "5px" }}>Benfits</p>
-                    <p style={{ margin: "5px" }}>Vouchers</p>
-                    {/* Menu professors*/}
-                    <p style={{ margin: "5px" }}>Student Transfers</p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToStudentBalance}
+                    >
+                      Balance
+                    </p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToStudentBenefits}
+                    >
+                      Benefits
+                    </p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToStudentVouchers}
+                    >
+                      Vouchers
+                    </p>
                   </DrawerBody>
                 </DrawerContent>
               </Drawer>
@@ -125,7 +192,7 @@ const NavBar = () => {
                       color: "black",
                     }}
                   >
-                    ADMIN
+                    USERNAME
                   </h4>
                   <IoChevronDown size={23} color="black" textAlign="center" />
                 </IconButton>
