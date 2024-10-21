@@ -1,9 +1,5 @@
 import React from "react";
 import {
-  Card,
-  CardBody,
-  Grid,
-  Box,
   Button,
   Stack,
   InputGroup,
@@ -11,7 +7,6 @@ import {
   Input,
   InputRightElement,
   Link,
-  Select,
 } from "@chakra-ui/react";
 
 const SignUpCompany = () => {
