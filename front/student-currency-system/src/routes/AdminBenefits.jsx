@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import bg from "../img/bg.png";
 import {
@@ -26,6 +26,7 @@ import {
   Th,
   Td,
   TableContainer,
+  Text,
 } from "@chakra-ui/react";
 
 import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
@@ -33,7 +34,31 @@ import { FiEdit } from "react-icons/fi";
 import RegisterProfessorModal from "../components/RegisterProfessorModal";
 
 const AdminBenefits = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure(); 
+
+  const [selectedBenefit, setSelectedBenefit] = useState({
+    name: "",
+    price: "",
+    description: "",
+    institution: "",
+  }); 
+
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure(); 
+
+  const handleEditClick = (benefit) => {
+    setSelectedBenefit(benefit); 
+    onEditOpen(); 
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSelectedBenefit((prev) => ({ ...prev, [name]: value })); 
+  };
+
   return (
     <>
       <NavBar />
@@ -64,7 +89,7 @@ const AdminBenefits = () => {
             <h2
               style={{ fontSize: "24px", color: "white", marginBottom: "30px" }}
             >
-              Register benegits for students of partner institutions!
+              Register benefits for students of partner institutions!
             </h2>
             <Button
               colorScheme="whiteAlpha"
@@ -75,6 +100,7 @@ const AdminBenefits = () => {
             </Button>
           </Box>
 
+          {/* Modal de Registro */}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
@@ -83,7 +109,7 @@ const AdminBenefits = () => {
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <RegisterProfessorModal></RegisterProfessorModal>
+                <RegisterProfessorModal />
               </ModalBody>
               <ModalFooter>
                 <Button backgroundColor="#E11138" color="white" mr={3}>
@@ -124,7 +150,7 @@ const AdminBenefits = () => {
                   />
                 </InputGroup>
                 <Button backgroundColor="#E11138" color="white" variant="solid">
-                  Button
+                  Search
                 </Button>
               </HStack>
             </Stack>
@@ -157,27 +183,6 @@ const AdminBenefits = () => {
                       institution: "UFSC",
                       description: "Gift Card for Amazon",
                     },
-                    {
-                      image: "https://via.placeholder.com/150",
-                      name: "Spotify Gift Card",
-                      price: "$ 500",
-                      institution: "UFSC",
-                      description: "Gift Card for Spotify",
-                    },
-                    {
-                      image: "https://via.placeholder.com/150",
-                      name: "Google Play Gift Card",
-                      price: "$ 300",
-                      institution: "UFSC",
-                      description: "Gift Card for Google Play",
-                    },
-                    {
-                      image: "https://via.placeholder.com/150",
-                      name: "Apple Store Gift Card",
-                      price: "$ 400",
-                      institution: "UFSC",
-                      description: "Gift Card for Apple Store",
-                    },
                   ].map((benefit, index) => (
                     <Tr key={index}>
                       <Td>
@@ -201,8 +206,7 @@ const AdminBenefits = () => {
                           backgroundColor="white"
                           color="#E11138"
                           margin="8px"
-                          marginLeft="0"
-                          paddingLeft="0"
+                          onClick={() => handleEditClick(benefit)}
                         >
                           <FiEdit />
                         </Button>
@@ -222,6 +226,110 @@ const AdminBenefits = () => {
           </Box>
         </Grid>
       </div>
+
+      <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader style={{ color: "#E11138", fontWeight: "600" }}>
+            Edit Benefit
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack spacing={4}>
+              <Text>Name</Text>
+              <InputGroup>
+                <Input
+                  name="name"
+                  value={selectedBenefit.name}
+                  onChange={handleChange}
+                  placeholder="Name"
+                  w="437px"
+                  style={{
+                    backgroundColor: "#ECEEF1",
+                    borderRadius: "8px",
+                  }}
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+              <Text>Price</Text>
+              <InputGroup>
+                <Input
+                  name="price"
+                  value={selectedBenefit.price}
+                  onChange={handleChange}
+                  placeholder="Price"
+                  w="437px"
+                  style={{
+                    backgroundColor: "#ECEEF1",
+                    borderRadius: "8px",
+                  }}
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+              <Text>Instituition</Text>
+              <InputGroup>
+                <Input
+                  name="institution"
+                  value={selectedBenefit.institution}
+                  onChange={handleChange}
+                  placeholder="Institution"
+                  w="437px"
+                  style={{
+                    backgroundColor: "#ECEEF1",
+                    borderRadius: "8px",
+                  }}
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+              <Text>Description</Text>
+              <InputGroup>
+                <Input
+                  name="description"
+                  value={selectedBenefit.description}
+                  onChange={handleChange}
+                  placeholder="Description"
+                  w="437px"
+                  style={{
+                    backgroundColor: "#ECEEF1",
+                    borderRadius: "8px",
+                  }}
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+            </Stack>
+          </ModalBody>
+          <ModalFooter>
+            <Button backgroundColor="#E11138" color="white" mr={3}>
+              Save Changes
+            </Button>
+            <Button onClick={onEditClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };

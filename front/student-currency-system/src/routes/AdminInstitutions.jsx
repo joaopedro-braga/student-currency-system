@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import NavBar from "../components/NavBar";
 import bg from "../img/bg.png";
 import {
@@ -25,6 +25,7 @@ import {
   Tr,
   Th,
   Td,
+  Text,
   TableContainer,
 } from "@chakra-ui/react";
 
@@ -34,6 +35,74 @@ import RegisterInstitutionModal from "../components/RegisterInstitutionModal";
 
 const AdminInstitutions = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isEditOpen,
+    onOpen: onEditOpen,
+    onClose: onEditClose,
+  } = useDisclosure();
+
+  const [institutions, setInstitutions] = useState([
+    {
+      cnpj: "XX.XXX.XXX/0001-XX",
+      name: "PUC-MG",
+      address:
+        "R. Dom José Gaspar, 500 - Coração Eucarístico, BH - MG, 30535-901",
+    },
+    {
+      cnpj: "XX.XXX.XXX/0002-XX",
+      name: "UFMG",
+      address: "Av. Pres. Antônio Carlos, 6627 - Pampulha, BH - MG, 31270-901",
+    },
+    {
+      cnpj: "XX.XXX.XXX/0003-XX",
+      name: "PUC-RJ",
+      address: "R. Marquês de São Vicente, 225 - Gávea, RJ, 22451-900",
+    },
+    {
+      cnpj: "XX.XXX.XXX/0004-XX",
+      name: "UFRJ",
+      address: "Av. Pedro Calmon, 550 - Cidade Universitária, RJ, 21941-901",
+    },
+    {
+      cnpj: "XX.XXX.XXX/0005-XX",
+      name: "UFRGS",
+      address:
+        "Av. Paulo Gama, 110 - Farroupilha, Porto Alegre - RS, 90040-060",
+    },
+    {
+      cnpj: "XX.XXX.XXX/0006-XX",
+      name: "UFSC",
+      address:
+        "Campus Reitor João David Ferreira Lima - Trindade, Florianópolis - SC, 88040-900",
+    },
+  ]);
+
+  const [selectedInstitution, setSelectedInstitution] = useState({
+    cnpj: "",
+    name: "",
+    address: "",
+  });
+
+  const handleEditClick = (institution) => {
+    setSelectedInstitution(institution);
+    onEditOpen();
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setSelectedInstitution((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = () => {
+    setInstitutions((prev) =>
+      prev.map((institution) =>
+        institution.cnpj === selectedInstitution.cnpj
+          ? selectedInstitution
+          : institution
+      )
+    );
+    onEditClose();
+  };
 
   return (
     <>
@@ -52,7 +121,14 @@ const AdminInstitutions = () => {
             flexDirection="column"
             justifyContent={["center", "center", "center", "center"]}
           >
-            <h1 style={{ fontSize: "30px", color: "white", fontWeight: "700" , marginBottom: "24px"}}>
+            <h1
+              style={{
+                fontSize: "30px",
+                color: "white",
+                fontWeight: "700",
+                marginBottom: "24px",
+              }}
+            >
               Institution Registration
             </h1>
             <h2
@@ -134,44 +210,7 @@ const AdminInstitutions = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {[
-                    {
-                      cnpj: "XX.XXX.XXX/0001-XX",
-                      name: "PUC-MG",
-                      address:
-                        "R. Dom José Gaspar, 500 - Coração Eucarístico, BH - MG, 30535-901",
-                    },
-                    {
-                      cnpj: "XX.XXX.XXX/0002-XX",
-                      name: "UFMG",
-                      address:
-                        "Av. Pres. Antônio Carlos, 6627 - Pampulha, BH - MG, 31270-901",
-                    },
-                    {
-                      cnpj: "XX.XXX.XXX/0003-XX",
-                      name: "PUC-RJ",
-                      address:
-                        "R. Marquês de São Vicente, 225 - Gávea, RJ, 22451-900",
-                    },
-                    {
-                      cnpj: "XX.XXX.XXX/0004-XX",
-                      name: "UFRJ",
-                      address:
-                        "Av. Pedro Calmon, 550 - Cidade Universitária, RJ, 21941-901",
-                    },
-                    {
-                      cnpj: "XX.XXX.XXX/0005-XX",
-                      name: "UFRGS",
-                      address:
-                        "Av. Paulo Gama, 110 - Farroupilha, Porto Alegre - RS, 90040-060",
-                    },
-                    {
-                      cnpj: "XX.XXX.XXX/0006-XX",
-                      name: "UFSC",
-                      address:
-                        "Campus Reitor João David Ferreira Lima - Trindade, Florianópolis - SC, 88040-900",
-                    },
-                  ].map((institution, index) => (
+                  {institutions.map((institution, index) => (
                     <Tr key={index}>
                       <Td wordBreak="break-word">{institution.cnpj}</Td>
                       <Td wordBreak="break-word">{institution.name}</Td>
@@ -184,6 +223,7 @@ const AdminInstitutions = () => {
                           margin="8px"
                           marginLeft="0"
                           paddingLeft="0"
+                          onClick={() => handleEditClick(institution)}
                         >
                           <FiEdit />
                         </Button>
@@ -203,6 +243,80 @@ const AdminInstitutions = () => {
           </Box>
         </Grid>
       </div>
+
+      <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader style={{ color: "#E11138", fontWeight: "600" }}>
+            Edit Institution
+          </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Stack spacing={4}>
+              <Text>CNPJ</Text>
+              <InputGroup>
+                <Input
+                  name="cnpj"
+                  value={selectedInstitution.cnpj}
+                  onChange={handleChange}
+                  placeholder="CNPJ"
+                  isReadOnly // CNPJ não deve ser editável, apenas para leitura
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+              <Text>Institution Name</Text>
+              <InputGroup>
+                <Input
+                  name="name"
+                  value={selectedInstitution.name}
+                  onChange={handleChange}
+                  placeholder="Institution Name"
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+              <Text>Adress</Text>
+              <InputGroup>
+                <Input
+                  name="address"
+                  value={selectedInstitution.address}
+                  onChange={handleChange}
+                  placeholder="Address"
+                  sx={{
+                    _hover: { borderColor: "#E11138" },
+                    _focus: {
+                      borderColor: "#E11138",
+                      boxShadow: "0 0 0 1px #E11138",
+                    },
+                  }}
+                />
+              </InputGroup>
+            </Stack>
+          </ModalBody>
+          <ModalFooter>
+            <Button
+              backgroundColor="#E11138"
+              color="white"
+              mr={3}
+              onClick={handleSave}
+            >
+              Save
+            </Button>
+            <Button onClick={onEditClose}>Cancel</Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </>
   );
 };
