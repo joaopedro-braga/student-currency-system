@@ -1,0 +1,11 @@
+{
+  "dependencies": {
+    "@chakra-ui/button": "^2.1.0",
+    "@chakra-ui/icons": "^2.2.4",
+    "@chakra-ui/react": "^2.10.2",
+    "@emotion/react": "^11.13.3",
+    "@emotion/styled": "^11.13.0",
+    "framer-motion": "^11.11.8",
+    "react-router-dom": "^6.26.2"
+  }
+}
