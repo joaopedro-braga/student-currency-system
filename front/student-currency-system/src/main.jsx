@@ -15,6 +15,8 @@ import PartnerCompanyBenefits from "./routes/PartnerCompanyBenefits.jsx";
 import StudentBalence from "./routes/StudentBalence.jsx";
 import StudentBenefits from "./routes/StudentBenefits.jsx";
 import StudentVouchers from "./routes/StudentVouchers.jsx";
+import StudentTransfers from "./routes/StudentTransfers.jsx";
+import Professor from "./routes/Professor.jsx";
 
 // Definição das rotas
 const router = createBrowserRouter([
@@ -57,6 +59,14 @@ const router = createBrowserRouter([
   {
     path: "/student-vouchers",
     element: <StudentVouchers />,
+  },
+  {
+    path: "/student-transfers",
+    element: <StudentTransfers />,
+  },
+  {
+    path: "/professor",
+    element: <Professor />,
   }
 ]);
 

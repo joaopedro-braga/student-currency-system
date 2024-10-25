@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import NavBar from "../components/NavBar"; 
-import bg from "../img/bg.png"; 
+import React, { useState, useEffect } from "react";
+import NavBar from "../components/NavBar";
+import bg from "../img/bg.png";
 import {
   Box,
   Grid,
@@ -25,79 +25,110 @@ import {
   Tr,
   Th,
   Td,
-  Text,
   TableContainer,
-} from "@chakra-ui/react"; 
+  Text,
+} from "@chakra-ui/react";
 
-import { SearchIcon, DeleteIcon } from "@chakra-ui/icons"; 
-import { FiEdit } from "react-icons/fi"; 
-import RegisterInstitutionModal from "../components/RegisterInstitutionModal"; 
+import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
+import { FiEdit } from "react-icons/fi";
+import ProfessorTransferModal from "../components/ProfessorTransferModal";
 
-// Main component that renders the Institutions management page
-const AdminInstitutions = () => {
-  // State hooks to handle modal visibility using Chakra's useDisclosure hook
-  const { isOpen, onOpen, onClose } = useDisclosure();
+const Professor = () => {
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Controls the state of the registration modal
+
+  // State to store the list of professors
+  const [professors, setProfessors] = useState([
+    {
+      cpf: "XXX.XXX.XXX-XX",
+      name: "João Paulo Pereira",
+      department: "Computer Science",
+      institution: "PUC-MG",
+    },
+    {
+      cpf: "XXX.XXX.XXX-XX",
+      name: "Gabriel Ramos",
+      department: "Computer Engineer",
+      institution: "PUC-MG",
+    },
+    {
+      cpf: "XXX.XXX.XXX-XX",
+      name: "João Pedro Braga",
+      department: "Informational Systems",
+      institution: "PUC-MG",
+    },
+    {
+      cpf: "XXX.XXX.XXX-XX",
+      name: "Maria Silva",
+      department: "Mathematics",
+      institution: "PUC-MG",
+    },
+  ]);
+
+  // State to store the selected professor's data for editing
+  const [selectedProfessor, setSelectedProfessor] = useState({
+    cpf: "",
+    name: "",
+    department: "",
+    institution: "",
+  });
+
+  // State to store the user's balance
+  const [saldo, setSaldo] = useState(0);
+
+  useEffect(() => {
+    // Simula uma chamada ao banco de dados para obter o saldo
+    const fetchSaldo = async () => {
+      try {
+        // Aqui você pode fazer a chamada para o banco de dados
+        const response = await fetch("/api/saldo");
+        const data = await response.json();
+        setSaldo(data.saldo);
+      } catch (error) {
+        console.error("Erro ao buscar saldo:", error);
+      }
+    };
+
+    fetchSaldo();
+  }, []);
+
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
-  } = useDisclosure();
+  } = useDisclosure(); // Controls the edit modal
 
-  // State to store a list of institutions with initial data
-  const [institutions, setInstitutions] = useState([
-    {
-      cnpj: "XX.XXX.XXX/0001-XX",
-      name: "PUC-MG",
-      address:
-        "R. Dom José Gaspar, 500 - Coração Eucarístico, BH - MG, 30535-901",
-    },
-    {
-      cnpj: "XX.XXX.XXX/0002-XX",
-      name: "UFMG",
-      address: "Av. Pres. Antônio Carlos, 6627 - Pampulha, BH - MG, 31270-901",
-    },
-  ]);
-
-  // State to store the currently selected institution for editing
-  const [selectedInstitution, setSelectedInstitution] = useState({
-    cnpj: "",
-    name: "",
-    address: "",
-  });
-
-  // Function to handle clicking the edit button for an institution
-  const handleEditClick = (institution) => {
-    setSelectedInstitution(institution); // Store the selected institution data
-    onEditOpen(); // Open the edit modal
+  // Opens the edit modal with the selected professor's data
+  const handleEditClick = (professor) => {
+    setSelectedProfessor(professor);
+    onEditOpen();
   };
 
-  // Function to handle input changes within the edit modal
+  // Updates the selected professor's data as the user edits
   const handleChange = (e) => {
-    const { name, value } = e.target; // Get the field name and new value
-    setSelectedInstitution((prev) => ({ ...prev, [name]: value })); // Update the corresponding field
+    const { name, value } = e.target;
+    setSelectedProfessor((prev) => ({ ...prev, [name]: value }));
   };
 
-  // Function to save changes made to an institution's data
+  // Saves the edited professor's data back into the list
   const handleSave = () => {
-    setInstitutions((prev) =>
-      prev.map((institution) =>
-        institution.cnpj === selectedInstitution.cnpj
-          ? selectedInstitution
-          : institution
+    setProfessors((prev) =>
+      prev.map((professor) =>
+        professor.cpf === selectedProfessor.cpf ? selectedProfessor : professor
       )
-    ); // Update the institution list
-    onEditClose(); // Close the edit modal
+    );
+    onEditClose();
   };
 
   return (
     <>
-      <NavBar /> {/* Renders the navigation bar */}
+      {/* Navigation bar component */}
+      <NavBar />
+
       <div style={{ margin: "30px" }}>
         <Grid templateColumns="20% 1fr" gap={6}>
-          {" "}
-          {/* Layout grid */}
+          {/* Left section: Registration box */}
           <Box
-            bgImage={`url(${bg})`} // Set background image
+            bgImage={`url(${bg})`}
             bgRepeat="no-repeat"
             bgSize="cover"
             bgPosition="center"
@@ -116,42 +147,44 @@ const AdminInstitutions = () => {
                 marginBottom: "24px",
               }}
             >
-              Institution Registration
+              Account Balance
             </h1>
             <h2
               style={{ fontSize: "24px", color: "white", marginBottom: "30px" }}
             >
-              Register your partner educational institutions with ease!
+              ${saldo.toFixed(2)}
             </h2>
             <Button
               colorScheme="whiteAlpha"
               onClick={onOpen}
               style={{ fontSize: "18px", fontWeight: "600" }}
             >
-              Register Institution
+              New Transfer
             </Button>
           </Box>
-          {/* Modal for registering a new institution */}
+
+          {/* Registration Modal */}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
               <ModalHeader style={{ color: "#E11138", fontWeight: "600" }}>
-                Register Institution
+                New Transfer
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                {/* Custom registration form */}
-                <RegisterInstitutionModal />
+                {/* Form to register new professors */}
+                <ProfessorTransferModal />
               </ModalBody>
               <ModalFooter>
                 <Button backgroundColor="#E11138" color="white" mr={3}>
-                  Save
+                  Transfer
                 </Button>
                 <Button onClick={onClose}>Cancel</Button>
               </ModalFooter>
             </ModalContent>
           </Modal>
-          {/* Table displaying the list of institutions */}
+
+          {/* Right section: Search and table */}
           <Box
             padding="30px"
             border="1px solid #00000033"
@@ -159,7 +192,9 @@ const AdminInstitutions = () => {
             boxShadow="lg"
           >
             <Stack spacing={4}>
+							<h1 style={{fontSize:"40px", fontWeight:"500", marginBottom:"8px"}}>Transfers</h1>
               <HStack spacing={4}>
+                {/* Search input */}
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <IconButton
@@ -173,7 +208,6 @@ const AdminInstitutions = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
-                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -182,35 +216,38 @@ const AdminInstitutions = () => {
                     }}
                   />
                 </InputGroup>
-                <Button backgroundColor="#E11138" color="white" variant="solid">
+                <Button backgroundColor="#E11138" color="white">
                   Button
                 </Button>
               </HStack>
             </Stack>
 
+            {/* Professors table */}
             <TableContainer marginTop="30px" maxHeight="400px" overflowY="auto">
               <Table variant="simple" size="sm">
                 <Thead>
                   <Tr>
-                    <Th>CNPJ</Th>
-                    <Th>Institution Name</Th>
-                    <Th>Address</Th>
+                    <Th>CPF</Th>
+                    <Th>Name</Th>
+                    <Th>Department</Th>
+                    <Th>Institution</Th>
                     <Th>Action</Th>
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {institutions.map((institution, index) => (
+                  {professors.map((professor, index) => (
                     <Tr key={index}>
-                      <Td wordBreak="break-word">{institution.cnpj}</Td>
-                      <Td wordBreak="break-word">{institution.name}</Td>
-                      <Td wordBreak="break-word">{institution.address}</Td>
+                      <Td wordBreak="break-word">{professor.cpf}</Td>
+                      <Td wordBreak="break-word">{professor.name}</Td>
+                      <Td wordBreak="break-word">{professor.department}</Td>
+                      <Td wordBreak="break-word">{professor.institution}</Td>
                       <Td>
                         <Button
                           size="sm"
                           backgroundColor="white"
                           color="#E11138"
                           margin="8px"
-                          onClick={() => handleEditClick(institution)}
+                          onClick={() => handleEditClick(professor)}
                         >
                           <FiEdit />
                         </Button>
@@ -230,63 +267,42 @@ const AdminInstitutions = () => {
           </Box>
         </Grid>
       </div>
-      {/* Modal for editing an existing institution */}
+      {/* Edit Professor Modal */}
       <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
         <ModalOverlay />
         <ModalContent>
           <ModalHeader style={{ color: "#E11138", fontWeight: "600" }}>
-            Edit Institution
+            Edit Professor
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Stack spacing={4}>
-              <Text>CNPJ</Text>
+              <Text>CPF</Text>
               <InputGroup>
-                <Input
-                  name="cnpj"
-                  value={selectedInstitution.cnpj}
-                  onChange={handleChange}
-                  isReadOnly // CNPJ should be read-only
-                  sx={{
-                    // Styling for hover and focus states
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
-                />
+                <Input name="cpf" value={selectedProfessor.cpf} isReadOnly />
               </InputGroup>
-              <Text>Institution Name</Text>
+              <Text>Name</Text>
               <InputGroup>
                 <Input
                   name="name"
-                  value={selectedInstitution.name}
+                  value={selectedProfessor.name}
                   onChange={handleChange}
-                  sx={{
-                    // Styling for hover and focus states
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
                 />
               </InputGroup>
-              <Text>Address</Text>
+              <Text>Department</Text>
               <InputGroup>
                 <Input
-                  name="address"
-                  value={selectedInstitution.address}
+                  name="department"
+                  value={selectedProfessor.department}
                   onChange={handleChange}
-                  sx={{
-                    // Styling for hover and focus states
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
+                />
+              </InputGroup>
+              <Text>Institution</Text>
+              <InputGroup>
+                <Input
+                  name="institution"
+                  value={selectedProfessor.institution}
+                  onChange={handleChange}
                 />
               </InputGroup>
             </Stack>
@@ -308,4 +324,4 @@ const AdminInstitutions = () => {
   );
 };
 
-export default AdminInstitutions;
+export default Professor;

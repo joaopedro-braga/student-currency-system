@@ -1,17 +1,18 @@
-import React from "react";
+import React from "react"; 
 import {
-  Button,
-  Stack,
-  InputGroup,
+  Button, 
+  Stack, 
+  InputGroup, 
   InputLeftElement,
-  Input,
-  InputRightElement,
-  Link,
+  Input, 
+  InputRightElement, 
+  Link, 
 } from "@chakra-ui/react";
 
 const SignUpCompany = () => {
   return (
     <>
+      {/* Title for the company sign-up form */}
       <h1
         style={{
           color: "#E11138",
@@ -25,9 +26,13 @@ const SignUpCompany = () => {
       >
         Sign Up
       </h1>
+
+      {/* Stack for vertically organizing input fields */}
       <Stack spacing={4} style={{ margin: "60px", paddingLeft: "20px" }}>
+        {/* Input field for CNPJ (company ID) */}
         <InputGroup>
-          <InputLeftElement pointerEvents="none"></InputLeftElement>
+          <InputLeftElement pointerEvents="none" />{" "}
+          {/* Placeholder for future icon */}
           <Input
             type="cnpj"
             placeholder="CNPJ"
@@ -37,6 +42,7 @@ const SignUpCompany = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -46,8 +52,10 @@ const SignUpCompany = () => {
           />
         </InputGroup>
 
+        {/* Input field for Address */}
         <InputGroup>
-          <InputLeftElement pointerEvents="none"></InputLeftElement>
+          <InputLeftElement pointerEvents="none" />{" "}
+          {/* Placeholder for future icon */}
           <Input
             type="adress"
             placeholder="Adress"
@@ -57,6 +65,7 @@ const SignUpCompany = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -64,11 +73,11 @@ const SignUpCompany = () => {
               },
             }}
           />
-          <InputRightElement></InputRightElement>
+          <InputRightElement /> {/* Placeholder for future icon or element */}
         </InputGroup>
-
       </Stack>
 
+      {/* Footer section with a placeholder link and 'Register' button */}
       <div
         style={{
           display: "flex",
@@ -80,7 +89,8 @@ const SignUpCompany = () => {
           paddingRight: "60px",
         }}
       >
-        <Link></Link>
+        <Link /> {/* Placeholder for future navigation link */}
+        {/* 'Register' button with hover and focus styles */}
         <Button
           style={{
             backgroundColor: "#E11138",
@@ -88,6 +98,7 @@ const SignUpCompany = () => {
             borderRadius: "12px",
           }}
           sx={{
+            // Styling for hover and focus states
             _hover: { borderColor: "#E11138" },
             _focus: {
               borderColor: "#E11138",

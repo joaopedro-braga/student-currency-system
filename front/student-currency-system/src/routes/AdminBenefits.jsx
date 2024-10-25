@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar";
-import bg from "../img/bg.png";
+import NavBar from "../components/NavBar"; 
+import bg from "../img/bg.png"; 
 import {
   Box,
   Grid,
@@ -27,43 +27,50 @@ import {
   Td,
   TableContainer,
   Text,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"; 
 
 import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FiEdit } from "react-icons/fi";
-import RegisterProfessorModal from "../components/RegisterProfessorModal";
+import RegisterProfessorModal from "../components/RegisterProfessorModal"; 
 
+// Defining the AdminBenefits component
 const AdminBenefits = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure(); 
+  // Handling modal state for opening and closing
+  const { isOpen, onOpen, onClose } = useDisclosure();
 
+  // State to manage the selected benefit for editing
   const [selectedBenefit, setSelectedBenefit] = useState({
     name: "",
     price: "",
     description: "",
     institution: "",
-  }); 
+  });
 
+  // Handling state for the edit modal
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
-  } = useDisclosure(); 
+  } = useDisclosure();
 
+  // Function to open the edit modal with the selected benefit data
   const handleEditClick = (benefit) => {
-    setSelectedBenefit(benefit); 
-    onEditOpen(); 
+    setSelectedBenefit(benefit);
+    onEditOpen();
   };
 
+  // Function to update the selected benefit's properties as the user types
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setSelectedBenefit((prev) => ({ ...prev, [name]: value })); 
+    setSelectedBenefit((prev) => ({ ...prev, [name]: value }));
   };
 
   return (
     <>
-      <NavBar />
+      <NavBar /> {/* Navigation bar component */}
       <div style={{ margin: "30px" }}>
         <Grid templateColumns="20% 1fr" gap={6}>
+          {/* Box for the benefits registration section */}
           <Box
             bgImage={`url(${bg})`}
             bgRepeat="no-repeat"
@@ -100,7 +107,7 @@ const AdminBenefits = () => {
             </Button>
           </Box>
 
-          {/* Modal de Registro */}
+          {/* Modal for registering a professor */}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
@@ -109,6 +116,7 @@ const AdminBenefits = () => {
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
+                {/* Professor registration form */}
                 <RegisterProfessorModal />
               </ModalBody>
               <ModalFooter>
@@ -120,6 +128,7 @@ const AdminBenefits = () => {
             </ModalContent>
           </Modal>
 
+          {/* Table to display benefits */}
           <Box
             padding="30px"
             border="1px solid #00000033"
@@ -141,6 +150,7 @@ const AdminBenefits = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
+                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -168,6 +178,7 @@ const AdminBenefits = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
+                  {/* Mapping through hardcoded benefits */}
                   {[
                     {
                       image: "https://via.placeholder.com/150",
@@ -208,6 +219,7 @@ const AdminBenefits = () => {
                           margin="8px"
                           onClick={() => handleEditClick(benefit)}
                         >
+                          {/* Edit button */}
                           <FiEdit />
                         </Button>
                         <Button
@@ -215,6 +227,7 @@ const AdminBenefits = () => {
                           backgroundColor="white"
                           color="#E11138"
                         >
+                          {/* Delete button */}
                           <DeleteIcon />
                         </Button>
                       </Td>
@@ -226,7 +239,7 @@ const AdminBenefits = () => {
           </Box>
         </Grid>
       </div>
-
+      {/* Edit Benefit Modal */}
       <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
         <ModalOverlay />
         <ModalContent>
@@ -243,18 +256,7 @@ const AdminBenefits = () => {
                   value={selectedBenefit.name}
                   onChange={handleChange}
                   placeholder="Name"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
+                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
                 />
               </InputGroup>
               <Text>Price</Text>
@@ -264,39 +266,17 @@ const AdminBenefits = () => {
                   value={selectedBenefit.price}
                   onChange={handleChange}
                   placeholder="Price"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
+                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
                 />
               </InputGroup>
-              <Text>Instituition</Text>
+              <Text>Institution</Text>
               <InputGroup>
                 <Input
                   name="institution"
                   value={selectedBenefit.institution}
                   onChange={handleChange}
                   placeholder="Institution"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
+                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
                 />
               </InputGroup>
               <Text>Description</Text>
@@ -306,18 +286,7 @@ const AdminBenefits = () => {
                   value={selectedBenefit.description}
                   onChange={handleChange}
                   placeholder="Description"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
+                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
                 />
               </InputGroup>
             </Stack>

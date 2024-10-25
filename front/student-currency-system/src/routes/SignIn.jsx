@@ -1,20 +1,21 @@
 import React from "react";
 import {
+  Box,
   Card,
   CardBody,
   Grid,
-  Box,
-  Button,
   Stack,
   InputGroup,
   InputLeftElement,
   Input,
   InputRightElement,
   Link,
+  Button,
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import bg from "../img/bg.png";
 
+// SignIn Component: Main component to render the sign-in form
 const SignIn = () => {
   return (
     <Box
@@ -31,6 +32,7 @@ const SignIn = () => {
       >
         <CardBody>
           <Grid templateColumns="repeat(2, 1fr)" gap={6}>
+            {/* Left Section: Sign-in form */}
             <Box
               display="flex"
               flexDirection="column"
@@ -39,7 +41,7 @@ const SignIn = () => {
             >
               <h1
                 style={{
-                  color: "#E11138",
+                  color: "#E11138", // Primary pink color
                   textAlign: "left",
                   paddingTop: "40px",
                   marginTop: "40px",
@@ -50,12 +52,15 @@ const SignIn = () => {
               >
                 Sign In
               </h1>
+
+              {/* Input Fields */}
               <Stack
                 spacing={4}
                 style={{ margin: "60px", paddingLeft: "20px" }}
               >
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
+                    {/* Email icon */}
                     <EmailIcon color="gray.500" />
                   </InputLeftElement>
                   <Input
@@ -64,9 +69,10 @@ const SignIn = () => {
                     w="437px"
                     style={{ backgroundColor: "#ECEEF1", borderRadius: "12px" }}
                     sx={{
+                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
-                        borderColor: "#E11138",
+                        borderColor: "#E11138", //
                         boxShadow: "0 0 0 1px #E11138",
                       },
                     }}
@@ -75,6 +81,7 @@ const SignIn = () => {
 
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
+                    {/* Lock password icon */}
                     <LockIcon color="gray.500" />
                   </InputLeftElement>
                   <Input
@@ -83,6 +90,7 @@ const SignIn = () => {
                     w="437px"
                     style={{ backgroundColor: "#ECEEF1", borderRadius: "12px" }}
                     sx={{
+                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -94,6 +102,7 @@ const SignIn = () => {
                 </InputGroup>
               </Stack>
 
+              {/* Forgot password link and login button */}
               <div
                 style={{
                   display: "flex",
@@ -105,7 +114,9 @@ const SignIn = () => {
                   paddingRight: "60px",
                 }}
               >
+                {/* Forgot password link */}
                 <Link>Forgot your password?</Link>
+                {/* Log in button */}
                 <Button
                   style={{
                     backgroundColor: "#E11138",
@@ -113,6 +124,7 @@ const SignIn = () => {
                     borderRadius: "12px",
                   }}
                   sx={{
+                    // Styling for hover and focus states
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",
@@ -124,10 +136,12 @@ const SignIn = () => {
                 </Button>
               </div>
             </Box>
+
+            {/* Right Section: Welcome message and Sign-up button */}
             <Box
               display="flex"
               flexDirection="column"
-              bgImage={`url(${bg})`}
+              bgImage={`url(${bg})`} // Background image
               bgRepeat="no-repeat"
               bgSize="cover"
               style={{
@@ -137,6 +151,7 @@ const SignIn = () => {
                 paddingTop: "80px",
               }}
             >
+              {/* Welcome message */}
               <h1
                 style={{
                   color: "white",
@@ -149,6 +164,7 @@ const SignIn = () => {
               >
                 Hi!
               </h1>
+              {/* Registration prompt */}
               <h3
                 style={{
                   color: "white",
@@ -173,8 +189,9 @@ const SignIn = () => {
                 Enter your details to create an account and join us!
               </h3>
               <Box display="flex" justifyContent="flex-end">
+                {/* Sign-up button */}
                 <Button
-                  colorScheme="whiteAlpha"
+                  colorScheme="whiteAlpha" // Transparent white button
                   style={{
                     marginRight: "30px",
                     marginTop: "20px",

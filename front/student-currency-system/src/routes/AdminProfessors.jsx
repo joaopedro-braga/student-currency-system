@@ -33,9 +33,11 @@ import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FiEdit } from "react-icons/fi";
 import RegisterProfessorModal from "../components/RegisterProfessorModal";
 
+// AdminProfessors Component: Manages the display and editing of professors' data
 const AdminProfessors = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Controls the state of the registration modal
 
+  // State to store the list of professors
   const [professors, setProfessors] = useState([
     {
       cpf: "XXX.XXX.XXX-XX",
@@ -63,6 +65,7 @@ const AdminProfessors = () => {
     },
   ]);
 
+  // State to store the selected professor's data for editing
   const [selectedProfessor, setSelectedProfessor] = useState({
     cpf: "",
     name: "",
@@ -74,18 +77,21 @@ const AdminProfessors = () => {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
-  } = useDisclosure();
+  } = useDisclosure(); // Controls the edit modal
 
+  // Opens the edit modal with the selected professor's data
   const handleEditClick = (professor) => {
     setSelectedProfessor(professor);
     onEditOpen();
   };
 
+  // Updates the selected professor's data as the user edits
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedProfessor((prev) => ({ ...prev, [name]: value }));
   };
 
+  // Saves the edited professor's data back into the list
   const handleSave = () => {
     setProfessors((prev) =>
       prev.map((professor) =>
@@ -97,9 +103,12 @@ const AdminProfessors = () => {
 
   return (
     <>
+      {/* Navigation bar component */}
       <NavBar />
+
       <div style={{ margin: "30px" }}>
         <Grid templateColumns="20% 1fr" gap={6}>
+          {/* Left section: Registration box */}
           <Box
             bgImage={`url(${bg})`}
             bgRepeat="no-repeat"
@@ -110,7 +119,7 @@ const AdminProfessors = () => {
             textAlign="center"
             display="flex"
             flexDirection="column"
-            justifyContent={["center", "center", "center", "center"]}
+            justifyContent="center"
           >
             <h1
               style={{
@@ -136,6 +145,7 @@ const AdminProfessors = () => {
             </Button>
           </Box>
 
+          {/* Registration Modal */}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
@@ -144,7 +154,8 @@ const AdminProfessors = () => {
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <RegisterProfessorModal></RegisterProfessorModal>
+                {/* Form to register new professors */}
+                <RegisterProfessorModal />{" "}
               </ModalBody>
               <ModalFooter>
                 <Button backgroundColor="#E11138" color="white" mr={3}>
@@ -155,6 +166,7 @@ const AdminProfessors = () => {
             </ModalContent>
           </Modal>
 
+          {/* Right section: Search and table */}
           <Box
             padding="30px"
             border="1px solid #00000033"
@@ -163,6 +175,7 @@ const AdminProfessors = () => {
           >
             <Stack spacing={4}>
               <HStack spacing={4}>
+                {/* Search input */}
                 <InputGroup>
                   <InputLeftElement pointerEvents="none">
                     <IconButton
@@ -176,6 +189,7 @@ const AdminProfessors = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
+                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -184,12 +198,13 @@ const AdminProfessors = () => {
                     }}
                   />
                 </InputGroup>
-                <Button backgroundColor="#E11138" color="white" variant="solid">
+                <Button backgroundColor="#E11138" color="white">
                   Button
                 </Button>
               </HStack>
             </Stack>
 
+            {/* Professors table */}
             <TableContainer marginTop="30px" maxHeight="400px" overflowY="auto">
               <Table variant="simple" size="sm">
                 <Thead>
@@ -216,6 +231,7 @@ const AdminProfessors = () => {
                           margin="8px"
                           onClick={() => handleEditClick(professor)}
                         >
+                          {/* Edit icon */}
                           <FiEdit />
                         </Button>
                         <Button
@@ -223,6 +239,7 @@ const AdminProfessors = () => {
                           backgroundColor="white"
                           color="#E11138"
                         >
+                          {/* Delete icon */}
                           <DeleteIcon />
                         </Button>
                       </Td>
@@ -234,7 +251,7 @@ const AdminProfessors = () => {
           </Box>
         </Grid>
       </div>
-
+      {/* Edit Professor Modal */}
       <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
         <ModalOverlay />
         <ModalContent>
@@ -246,25 +263,7 @@ const AdminProfessors = () => {
             <Stack spacing={4}>
               <Text>CPF</Text>
               <InputGroup>
-                <Input
-                  name="cpf"
-                  value={selectedProfessor.cpf}
-                  onChange={handleChange}
-                  placeholder="CPF"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
-                  isReadOnly // CPF não deve ser editável, apenas para leitura
-                />
+                <Input name="cpf" value={selectedProfessor.cpf} isReadOnly />
               </InputGroup>
               <Text>Name</Text>
               <InputGroup>
@@ -272,19 +271,6 @@ const AdminProfessors = () => {
                   name="name"
                   value={selectedProfessor.name}
                   onChange={handleChange}
-                  placeholder="Name"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
                 />
               </InputGroup>
               <Text>Department</Text>
@@ -293,19 +279,6 @@ const AdminProfessors = () => {
                   name="department"
                   value={selectedProfessor.department}
                   onChange={handleChange}
-                  placeholder="Department"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
                 />
               </InputGroup>
               <Text>Institution</Text>
@@ -314,19 +287,6 @@ const AdminProfessors = () => {
                   name="institution"
                   value={selectedProfessor.institution}
                   onChange={handleChange}
-                  placeholder="Institution"
-                  w="437px"
-                  style={{
-                    backgroundColor: "#ECEEF1",
-                    borderRadius: "8px",
-                  }}
-                  sx={{
-                    _hover: { borderColor: "#E11138" },
-                    _focus: {
-                      borderColor: "#E11138",
-                      boxShadow: "0 0 0 1px #E11138",
-                    },
-                  }}
                 />
               </InputGroup>
             </Stack>

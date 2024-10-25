@@ -9,18 +9,49 @@ import {
 } from "@chakra-ui/react";
 
 // List of institutions to be used in the dropdown
-const institutions = [
-  { id: "pucminas", name: "PUC Minas" },
-  { id: "usp", name: "Universidade de São Paulo" },
-  { id: "unicamp", name: "Universidade Estadual de Campinas " },
-  { id: "ufmg", name: "Universidade Federal de Minas Gerais" },
-  { id: "fatec", name: "Faculdade de Tecnologia de São Paulo" },
+const students = [
+  { name: "João Pedro Braga" },
+  { name: "Maria Clara Silva" },
+  { name: "José da Silva Pereira" },
+  { name: "Ana Paula Marcos" },
+  { name: "João da Silva Pinto" },
+  { name: "Maria Silva Silva" },
 ];
 
-const RegisterProfessorModal = () => {
+const ProfessorTransferModal = () => {
   return (
     <>
       <Stack spacing={4} style={{ margin: "10px" }}>
+        {/*Student dropdown */}
+        <InputGroup>
+          <InputLeftElement pointerEvents="none" />
+
+          <Select
+            placeholder="Select student"
+            style={{
+              backgroundColor: "#ECEEF1",
+              borderRadius: "12px",
+              color: "gray.500",
+            }}
+            sx={{
+              pl: "2.5rem",
+              pr: "2.5rem",
+              _hover: { borderColor: "#E11138" },
+              _focus: {
+                borderColor: "#E11138",
+                boxShadow: "0 0 0 1px #E11138",
+              },
+            }}
+          >
+            {students.map((students) => (
+              <option key={students.name} value={students.name}>
+                {students.name}
+              </option>
+            ))}
+          </Select>
+
+          <InputRightElement />
+        </InputGroup>
         {/* Name input field */}
         <InputGroup>
           <InputLeftElement pointerEvents="none"></InputLeftElement>
@@ -86,37 +117,6 @@ const RegisterProfessorModal = () => {
           <InputRightElement></InputRightElement>
         </InputGroup>
 
-        {/* Institution dropdown */}
-        <InputGroup>
-          <InputLeftElement pointerEvents="none" />
-
-          <Select
-            placeholder="Select institution"
-            style={{
-              backgroundColor: "#ECEEF1",
-              borderRadius: "12px",
-              color: "gray.500",
-            }}
-            sx={{
-              pl: "2.5rem",
-              pr: "2.5rem",
-              _hover: { borderColor: "#E11138" },
-              _focus: {
-                borderColor: "#E11138",
-                boxShadow: "0 0 0 1px #E11138",
-              },
-            }}
-          >
-            {institutions.map((institution) => (
-              <option key={institution.id} value={institution.id}>
-                {institution.name}
-              </option>
-            ))}
-          </Select>
-
-          <InputRightElement />
-        </InputGroup>
-
         {/* Department input field */}
         <InputGroup>
           <InputLeftElement pointerEvents="none"></InputLeftElement>
@@ -143,4 +143,4 @@ const RegisterProfessorModal = () => {
   );
 };
 
-export default RegisterProfessorModal;
+export default ProfessorTransferModal;
