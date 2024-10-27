@@ -33,11 +33,9 @@ import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FiEdit } from "react-icons/fi";
 import RegisterProfessorModal from "../components/RegisterProfessorModal";
 
-// AdminProfessors Component: Manages the display and editing of professors' data
 const AdminProfessors = () => {
-  const { isOpen, onOpen, onClose } = useDisclosure(); // Controls the state of the registration modal
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Sugestão: Renomear para algo mais descritivo, como `isRegisterModalOpen`, para melhorar a legibilidade
 
-  // State to store the list of professors
   const [professors, setProfessors] = useState([
     {
       cpf: "XXX.XXX.XXX-XX",
@@ -45,6 +43,7 @@ const AdminProfessors = () => {
       department: "Computer Science",
       institution: "PUC-MG",
     },
+    // Sugestão: Extrair a lista de professores em um arquivo separado para permitir a reutilização e facilitar testes futuros
     {
       cpf: "XXX.XXX.XXX-XX",
       name: "Gabriel Ramos",
@@ -77,21 +76,22 @@ const AdminProfessors = () => {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
-  } = useDisclosure(); // Controls the edit modal
+  } = useDisclosure(); // Sugestão: Mesmo aqui, renomear para algo como `isEditModalOpen` pode deixar o código mais claro
 
-  // Opens the edit modal with the selected professor's data
+
+  
   const handleEditClick = (professor) => {
     setSelectedProfessor(professor);
     onEditOpen();
+    // Sugestão: Verificar se o professor existe antes de setar `selectedProfessor`, evitando erros em dados indefinidos
   };
 
-  // Updates the selected professor's data as the user edits
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedProfessor((prev) => ({ ...prev, [name]: value }));
+    // Sugestão: Validar os inputs antes de setar no estado (ex.: verificar se o CPF está no formato correto)
   };
 
-  // Saves the edited professor's data back into the list
   const handleSave = () => {
     setProfessors((prev) =>
       prev.map((professor) =>
@@ -99,6 +99,7 @@ const AdminProfessors = () => {
       )
     );
     onEditClose();
+    // Sugestão: Incluir feedback visual ou uma notificação ao usuário quando as alterações forem salvas com sucesso
   };
 
   return (
@@ -189,7 +190,7 @@ const AdminProfessors = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
-                      // Styling for hover and focus states
+                     
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",

@@ -33,17 +33,16 @@ import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FiEdit } from "react-icons/fi"; 
 import RegisterInstitutionModal from "../components/RegisterInstitutionModal"; 
 
-// Main component that renders the Institutions management page
 const AdminInstitutions = () => {
-  // State hooks to handle modal visibility using Chakra's useDisclosure hook
+   // Sugestão: Verifique se há necessidade de desestruturar 'useDisclosure' duas vezes.
+  // Talvez você possa unificar os controles dos modais, especialmente se eles compartilham comportamentos semelhantes.
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
-    isOpen: isEditOpen,
+    isOpen: isEditOpen, 
     onOpen: onEditOpen,
     onClose: onEditClose,
   } = useDisclosure();
 
-  // State to store a list of institutions with initial data
   const [institutions, setInstitutions] = useState([
     {
       cnpj: "XX.XXX.XXX/0001-XX",
@@ -58,35 +57,35 @@ const AdminInstitutions = () => {
     },
   ]);
 
-  // State to store the currently selected institution for editing
+  // Sugestão: Você pode considerar mover o estado `selectedInstitution` para dentro do modal de edição,
+  // já que ele só é relevante quando o modal está aberto. Isso pode deixar o componente mais organizado.
   const [selectedInstitution, setSelectedInstitution] = useState({
     cnpj: "",
     name: "",
     address: "",
   });
 
-  // Function to handle clicking the edit button for an institution
   const handleEditClick = (institution) => {
-    setSelectedInstitution(institution); // Store the selected institution data
-    onEditOpen(); // Open the edit modal
+    setSelectedInstitution(institution); 
+    onEditOpen(); 
   };
 
-  // Function to handle input changes within the edit modal
   const handleChange = (e) => {
-    const { name, value } = e.target; // Get the field name and new value
-    setSelectedInstitution((prev) => ({ ...prev, [name]: value })); // Update the corresponding field
+    const { name, value } = e.target; 
+     // Sugestão: Adicionar validações de entrada aqui pode melhorar a robustez, especialmente para campos como CNPJ.
+    setSelectedInstitution((prev) => ({ ...prev, [name]: value })); 
   };
 
-  // Function to save changes made to an institution's data
   const handleSave = () => {
+    // Sugestão: Considere validar os dados antes de salvar.
     setInstitutions((prev) =>
       prev.map((institution) =>
         institution.cnpj === selectedInstitution.cnpj
           ? selectedInstitution
           : institution
       )
-    ); // Update the institution list
-    onEditClose(); // Close the edit modal
+    ); 
+    onEditClose(); 
   };
 
   return (
@@ -97,7 +96,7 @@ const AdminInstitutions = () => {
           {" "}
           {/* Layout grid */}
           <Box
-            bgImage={`url(${bg})`} // Set background image
+            bgImage={`url(${bg})`} 
             bgRepeat="no-repeat"
             bgSize="cover"
             bgPosition="center"
@@ -173,7 +172,7 @@ const AdminInstitutions = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
-                      // Styling for hover and focus states
+
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -246,9 +245,9 @@ const AdminInstitutions = () => {
                   name="cnpj"
                   value={selectedInstitution.cnpj}
                   onChange={handleChange}
-                  isReadOnly // CNPJ should be read-only
+                  isReadOnly 
                   sx={{
-                    // Styling for hover and focus states
+                    
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",
@@ -264,7 +263,7 @@ const AdminInstitutions = () => {
                   value={selectedInstitution.name}
                   onChange={handleChange}
                   sx={{
-                    // Styling for hover and focus states
+                    
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",
@@ -280,7 +279,7 @@ const AdminInstitutions = () => {
                   value={selectedInstitution.address}
                   onChange={handleChange}
                   sx={{
-                    // Styling for hover and focus states
+                    
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",

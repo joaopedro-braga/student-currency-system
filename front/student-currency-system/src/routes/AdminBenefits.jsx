@@ -27,39 +27,39 @@ import {
   Td,
   TableContainer,
   Text,
-} from "@chakra-ui/react"; 
+} from "@chakra-ui/react";  // Bom uso da biblioteca Chakra UI para UI, poderia considerar usar as propriedades de estilo do Chakra UI ao invés de `inline-styles`.
 
 import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FiEdit } from "react-icons/fi";
-import RegisterProfessorModal from "../components/RegisterProfessorModal"; 
+import RegisterProfessorModal from "../components/RegisterProfessorModal"; // Certifique-se de manter as importações organizadas em blocos: bibliotecas externas, componentes e assets.
 
-// Defining the AdminBenefits component
+
 const AdminBenefits = () => {
-  // Handling modal state for opening and closing
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  
+  const { isOpen, onOpen, onClose } = useDisclosure(); // Essa lógica pode ser extraída para um hook customizado caso tenha mais modais no futuro.
 
-  // State to manage the selected benefit for editing
   const [selectedBenefit, setSelectedBenefit] = useState({
     name: "",
     price: "",
     description: "",
     institution: "",
-  });
+  }); // Para evitar repetição, considere mover esse estado inicial para uma constante separada, o que facilita a manutenção.
 
-  // Handling state for the edit modal
+  // Exemplo:
+  // const initialBenefit = { name: "", price: "", description: "", institution: "" };
+  // const [selectedBenefit, setSelectedBenefit] = useState(initialBenefit);
+  
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
   } = useDisclosure();
 
-  // Function to open the edit modal with the selected benefit data
   const handleEditClick = (benefit) => {
     setSelectedBenefit(benefit);
     onEditOpen();
   };
 
-  // Function to update the selected benefit's properties as the user types
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedBenefit((prev) => ({ ...prev, [name]: value }));
