@@ -53,6 +53,7 @@ This project implements a RESTful API for a Student Coin System, designed to inc
 - Postman (for API testing)
 - Swagger (for API documentation)
 
+
 ### Project Structure
 
 The project follows a layered architecture:
@@ -60,6 +61,8 @@ The project follows a layered architecture:
 - **API Layer (Controllers):** Handles HTTP requests, validates input, and delegates to the service layer.
 - **Service Layer (Business Logic):** Implements business rules, manages transactions, and interacts with repositories.
 - **Repository Layer (Data Access):** Provides abstraction over data persistence, using Spring Data JPA to interact with the database.
+
+[Open presentation of the project's architectures and technologies](docs/project-architecture-and-technologies.pdf)
 
 ## Documentation
 
