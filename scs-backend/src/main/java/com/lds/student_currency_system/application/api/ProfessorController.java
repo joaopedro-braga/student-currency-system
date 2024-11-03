@@ -1,9 +1,5 @@
 package com.lds.student_currency_system.application.api;
 
-import com.lds.student_currency_system.application.domain.model.Professor;
-import com.lds.student_currency_system.application.domain.model.Student;
-import com.lds.student_currency_system.application.domain.model.Transfer;
-import com.lds.student_currency_system.application.domain.service.ProfessorService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lds.student_currency_system.domain.model.Professor;
+import com.lds.student_currency_system.domain.model.Student;
+import com.lds.student_currency_system.domain.model.Transfer;
+import com.lds.student_currency_system.domain.service.ProfessorService;
 
 import java.util.List;
 

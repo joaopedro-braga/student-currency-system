@@ -1,7 +1,5 @@
 package com.lds.student_currency_system.application.api;
 
-import com.lds.student_currency_system.application.domain.model.Voucher;
-import com.lds.student_currency_system.application.domain.service.VoucherService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +11,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.lds.student_currency_system.domain.model.Voucher;
+import com.lds.student_currency_system.domain.service.VoucherService;
 
 import java.util.List;
 
