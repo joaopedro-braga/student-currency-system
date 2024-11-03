@@ -10,4 +10,6 @@ import com.lds.student_currency_system.domain.model.Admin;
 @Repository
 public interface AdminRepository extends JpaRepository<Admin, Long> {
     Optional<Admin> findByEmail(String email);
+
+    boolean existsByEmail(String email);
 }

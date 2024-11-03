@@ -6,6 +6,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import com.lds.student_currency_system.application.dto.AuthenticationRequest;
 import com.lds.student_currency_system.application.dto.LoginResponse;
@@ -18,9 +19,7 @@ import com.lds.student_currency_system.infra.repositories.StudentRepository;
 import com.lds.student_currency_system.infra.security.TokenService;
 import com.lds.student_currency_system.domain.Exception.UserAlreadyExistsException;
 import com.lds.student_currency_system.domain.model.User;
-import com.lds.student_currency_system.domain.service.impl.UserDetailsServiceImpl;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
@@ -29,7 +28,6 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class AuthenticationController {
 
-    private final UserDetailsServiceImpl userDetailsService;
     private final TokenService tokenService;
     private final AuthenticationManager authenticationManager;
     private final StudentRepository studentRepository;
@@ -41,17 +39,18 @@ public class AuthenticationController {
     }
 
     @PostMapping("/register/student")
-    public ResponseEntity<LoginResponse> register(@RequestBody @Valid RegisterStudentRequest request){
-        if(this.userDetailsService.loadUserByUsername(request.email()) != null) 
+    public ResponseEntity<LoginResponse> registerStudent(@RequestBody @Valid RegisterStudentRequest request){
+        if (this.studentRepository.existsByEmail(request.email()))
             throw new UserAlreadyExistsException("A user with this email already exists!");
-        
+
+            System.out.println("request: " + request);
         this.studentRepository.save(StudentMapper.toStudent(request));
         return ResponseEntity.ok(authenticate(request.email(), request.password()));
     }
 
     @PostMapping("/register/company")
-    public ResponseEntity<LoginResponse> register(@RequestBody @Valid RegisterCompanyRequest request){
-        if(this.userDetailsService.loadUserByUsername(request.email()) != null) 
+    public ResponseEntity<LoginResponse> registerCompany(@RequestBody @Valid RegisterCompanyRequest request){
+        if(this.companyRepository.existsByEmail(request.email())) 
             throw new UserAlreadyExistsException("A user with this email already exists!");
         
         this.companyRepository.save(CompanyMapper.toCompany(request));

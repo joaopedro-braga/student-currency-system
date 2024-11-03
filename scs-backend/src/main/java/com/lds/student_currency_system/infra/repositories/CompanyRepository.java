@@ -7,4 +7,5 @@ import com.lds.student_currency_system.domain.model.Company;
 
 @Repository
 public interface CompanyRepository extends JpaRepository<Company, Long> {
+    boolean existsByEmail(String email);
 }
