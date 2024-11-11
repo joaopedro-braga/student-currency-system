@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "@chakra-ui/menu": "^2.2.1",
+    "@chakra-ui/select": "^2.1.2",
+    "react-icons": "^5.3.0"
+  }
+}
