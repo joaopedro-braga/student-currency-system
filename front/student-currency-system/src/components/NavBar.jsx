@@ -78,6 +78,11 @@ const NavBar = () => {
     onClose();
   };
 
+  const goToStudentTransfers = () => {
+    navigate("/student-transfers");
+    onClose();
+  }
+
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -120,45 +125,51 @@ const NavBar = () => {
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToAdminInstitutions}
                     >
-                      Institutions
+                      Admin Institutions
                     </p>
                     <p
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToAdminProfessors}
                     >
-                      Professors
+                      Admin Professors
                     </p>
                     <p
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToAdminBenefits}
                     >
-                      Benefits
+                      Admin Benefits
                     </p>
                     {/* Menu partner company */}
                     <p
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToPartnerCompanyBenefits}
                     >
-                      Registered Benefits
+                      Partner Company Registered Benefits
                     </p>
                     {/* Menu student */}
                     <p
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToStudentBalance}
                     >
-                      Balance
+                      Student Balance
                     </p>
                     <p
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToStudentBenefits}
                     >
-                      Benefits
+                      Student Benefits
                     </p>
                     <p
                       style={{ margin: "5px", cursor: "pointer" }}
                       onClick={goToStudentVouchers}
                     >
-                      Vouchers
+                      Student Vouchers
+                    </p>
+                    <p
+                      style={{ margin: "5px", cursor: "pointer" }}
+                      onClick={goToStudentVouchers}
+                    >
+                      Student Transfers
                     </p>
                   </DrawerBody>
                 </DrawerContent>
@@ -191,7 +202,7 @@ const NavBar = () => {
                       color: "black",
                     }}
                   >
-                    USERNAME
+                    Username
                   </h4>
                   <IoChevronDown size={23} color="black" textAlign="center" />
                 </IconButton>

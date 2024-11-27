@@ -1,24 +1,27 @@
-import React from "react";
+import React from "react"; 
 import {
-  Button,
-  Stack,
+  Button, 
+  Stack, 
   InputGroup,
-  InputLeftElement,
-  Input,
-  InputRightElement,
-  Link,
-  Select,
+  InputLeftElement, 
+  Input, 
+  InputRightElement, 
+  Link, 
+  Select, 
 } from "@chakra-ui/react";
+
 import {
-  EmailIcon,
-  LockIcon,
+  EmailIcon, 
+  LockIcon, 
   SettingsIcon,
 } from "@chakra-ui/icons";
-import { FaUser} from "react-icons/fa";
+import { FaUser } from "react-icons/fa"; 
 
+// Functional component that renders the sign-up form
 const SignUpForms = () => {
   return (
     <>
+      {/* Title for the sign-up form */}
       <h1
         style={{
           color: "#E11138",
@@ -32,10 +35,13 @@ const SignUpForms = () => {
       >
         Sign Up
       </h1>
+
+      {/* Stack for organizing input fields vertically with spacing */}
       <Stack spacing={4} style={{ margin: "60px", paddingLeft: "20px" }}>
+        {/* Input field for Name with user icon */}
         <InputGroup>
           <InputLeftElement pointerEvents="none">
-            <FaUser color="gray.500" />
+            <FaUser color="gray.500" /> {/* User icon with gray color */}
           </InputLeftElement>
           <Input
             type="name"
@@ -46,6 +52,7 @@ const SignUpForms = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -55,12 +62,13 @@ const SignUpForms = () => {
           />
         </InputGroup>
 
+        {/* Input field for Email with email icon */}
         <InputGroup>
           <InputLeftElement pointerEvents="none">
-            <EmailIcon color="gray.500" />
+            <EmailIcon color="gray.500" /> {/* Email icon with gray color */}
           </InputLeftElement>
           <Input
-            type="email"
+            type="email" // Input type for email
             placeholder="E-mail"
             w="437px"
             style={{
@@ -68,6 +76,7 @@ const SignUpForms = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -75,14 +84,14 @@ const SignUpForms = () => {
               },
             }}
           />
-          <InputRightElement></InputRightElement>
+          <InputRightElement />
         </InputGroup>
 
+        {/* Dropdown to select the user type with settings icon */}
         <InputGroup>
           <InputLeftElement pointerEvents="none">
-            <SettingsIcon color="gray.500" />
+            <SettingsIcon color="gray.500" /> {/* Settings icon */}
           </InputLeftElement>
-
           <Select
             placeholder="Select user type"
             style={{
@@ -91,6 +100,7 @@ const SignUpForms = () => {
               color: "gray.500",
             }}
             sx={{
+              // Styling for hover and focus states
               pl: "2.5rem",
               pr: "2.5rem",
               _hover: { borderColor: "#E11138" },
@@ -100,19 +110,20 @@ const SignUpForms = () => {
               },
             }}
           >
+            {/* Options for user types */}
             <option value="option1">Student</option>
             <option value="option2">Partner Company</option>
           </Select>
-
-          <InputRightElement></InputRightElement>
+          <InputRightElement />
         </InputGroup>
 
+        {/* Input field for Password with lock icon */}
         <InputGroup>
           <InputLeftElement pointerEvents="none">
-            <LockIcon color="gray.500" />
+            <LockIcon color="gray.500" /> {/* Lock icon for password field */}
           </InputLeftElement>
           <Input
-            type="password"
+            type="password" // Password input type to hide characters
             placeholder="Password"
             w="437px"
             style={{
@@ -120,6 +131,7 @@ const SignUpForms = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -127,10 +139,11 @@ const SignUpForms = () => {
               },
             }}
           />
-          <InputRightElement></InputRightElement>
+          <InputRightElement />
         </InputGroup>
       </Stack>
 
+      {/* Footer section with a placeholder link and 'Continue' button */}
       <div
         style={{
           display: "flex",
@@ -142,7 +155,7 @@ const SignUpForms = () => {
           paddingRight: "60px",
         }}
       >
-        <Link></Link>
+        <Link /> {/* Placeholder for future navigation link */}
         <Button
           style={{
             backgroundColor: "#E11138",
@@ -150,6 +163,7 @@ const SignUpForms = () => {
             borderRadius: "12px",
           }}
           sx={{
+            // Styling for hover and focus states
             _hover: { borderColor: "#E11138" },
             _focus: {
               borderColor: "#E11138",

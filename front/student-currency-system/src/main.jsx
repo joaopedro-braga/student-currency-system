@@ -16,6 +16,8 @@ import StudentBalence from "./routes/StudentBalence.jsx";
 import StudentBenefits from "./routes/StudentBenefits.jsx";
 import StudentVouchers from "./routes/StudentVouchers.jsx";
 import PrivateRoute from "./components/auth/PrivateRoute.jsx";
+import StudentTransfers from "./routes/StudentTransfers.jsx";
+import Professor from "./routes/Professor.jsx";
 
 // Definição das rotas
 const router = createBrowserRouter([
@@ -87,6 +89,14 @@ const router = createBrowserRouter([
       </PrivateRoute>
     ),
   },
+  {
+    path: "/student-transfers",
+    element: <StudentTransfers />,
+  },
+  {
+    path: "/professor",
+    element: <Professor />,
+  }
 ]);
 
 // Renderização do app

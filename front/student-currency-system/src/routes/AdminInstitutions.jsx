@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar";
-import bg from "../img/bg.png";
+import NavBar from "../components/NavBar"; 
+import bg from "../img/bg.png"; 
 import {
   Box,
   Grid,
@@ -27,13 +27,15 @@ import {
   Td,
   Text,
   TableContainer,
-} from "@chakra-ui/react";
+} from "@chakra-ui/react"; 
 
-import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
-import { FiEdit } from "react-icons/fi";
-import RegisterInstitutionModal from "../components/RegisterInstitutionModal";
+import { SearchIcon, DeleteIcon } from "@chakra-ui/icons"; 
+import { FiEdit } from "react-icons/fi"; 
+import RegisterInstitutionModal from "../components/RegisterInstitutionModal"; 
 
+// Main component that renders the Institutions management page
 const AdminInstitutions = () => {
+  // State hooks to handle modal visibility using Chakra's useDisclosure hook
   const { isOpen, onOpen, onClose } = useDisclosure();
   const {
     isOpen: isEditOpen,
@@ -41,6 +43,7 @@ const AdminInstitutions = () => {
     onClose: onEditClose,
   } = useDisclosure();
 
+  // State to store a list of institutions with initial data
   const [institutions, setInstitutions] = useState([
     {
       cnpj: "XX.XXX.XXX/0001-XX",
@@ -53,46 +56,28 @@ const AdminInstitutions = () => {
       name: "UFMG",
       address: "Av. Pres. Antônio Carlos, 6627 - Pampulha, BH - MG, 31270-901",
     },
-    {
-      cnpj: "XX.XXX.XXX/0003-XX",
-      name: "PUC-RJ",
-      address: "R. Marquês de São Vicente, 225 - Gávea, RJ, 22451-900",
-    },
-    {
-      cnpj: "XX.XXX.XXX/0004-XX",
-      name: "UFRJ",
-      address: "Av. Pedro Calmon, 550 - Cidade Universitária, RJ, 21941-901",
-    },
-    {
-      cnpj: "XX.XXX.XXX/0005-XX",
-      name: "UFRGS",
-      address:
-        "Av. Paulo Gama, 110 - Farroupilha, Porto Alegre - RS, 90040-060",
-    },
-    {
-      cnpj: "XX.XXX.XXX/0006-XX",
-      name: "UFSC",
-      address:
-        "Campus Reitor João David Ferreira Lima - Trindade, Florianópolis - SC, 88040-900",
-    },
   ]);
 
+  // State to store the currently selected institution for editing
   const [selectedInstitution, setSelectedInstitution] = useState({
     cnpj: "",
     name: "",
     address: "",
   });
 
+  // Function to handle clicking the edit button for an institution
   const handleEditClick = (institution) => {
-    setSelectedInstitution(institution);
-    onEditOpen();
+    setSelectedInstitution(institution); // Store the selected institution data
+    onEditOpen(); // Open the edit modal
   };
 
+  // Function to handle input changes within the edit modal
   const handleChange = (e) => {
-    const { name, value } = e.target;
-    setSelectedInstitution((prev) => ({ ...prev, [name]: value }));
+    const { name, value } = e.target; // Get the field name and new value
+    setSelectedInstitution((prev) => ({ ...prev, [name]: value })); // Update the corresponding field
   };
 
+  // Function to save changes made to an institution's data
   const handleSave = () => {
     setInstitutions((prev) =>
       prev.map((institution) =>
@@ -100,17 +85,19 @@ const AdminInstitutions = () => {
           ? selectedInstitution
           : institution
       )
-    );
-    onEditClose();
+    ); // Update the institution list
+    onEditClose(); // Close the edit modal
   };
 
   return (
     <>
-      <NavBar />
+      <NavBar /> {/* Renders the navigation bar */}
       <div style={{ margin: "30px" }}>
         <Grid templateColumns="20% 1fr" gap={6}>
+          {" "}
+          {/* Layout grid */}
           <Box
-            bgImage={`url(${bg})`}
+            bgImage={`url(${bg})`} // Set background image
             bgRepeat="no-repeat"
             bgSize="cover"
             bgPosition="center"
@@ -119,7 +106,7 @@ const AdminInstitutions = () => {
             textAlign="center"
             display="flex"
             flexDirection="column"
-            justifyContent={["center", "center", "center", "center"]}
+            justifyContent="center"
           >
             <h1
               style={{
@@ -144,7 +131,7 @@ const AdminInstitutions = () => {
               Register Institution
             </Button>
           </Box>
-
+          {/* Modal for registering a new institution */}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
@@ -153,6 +140,7 @@ const AdminInstitutions = () => {
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
+                {/* Custom registration form */}
                 <RegisterInstitutionModal />
               </ModalBody>
               <ModalFooter>
@@ -163,7 +151,7 @@ const AdminInstitutions = () => {
               </ModalFooter>
             </ModalContent>
           </Modal>
-
+          {/* Table displaying the list of institutions */}
           <Box
             padding="30px"
             border="1px solid #00000033"
@@ -185,6 +173,7 @@ const AdminInstitutions = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
+                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -221,8 +210,6 @@ const AdminInstitutions = () => {
                           backgroundColor="white"
                           color="#E11138"
                           margin="8px"
-                          marginLeft="0"
-                          paddingLeft="0"
                           onClick={() => handleEditClick(institution)}
                         >
                           <FiEdit />
@@ -243,7 +230,7 @@ const AdminInstitutions = () => {
           </Box>
         </Grid>
       </div>
-
+      {/* Modal for editing an existing institution */}
       <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
         <ModalOverlay />
         <ModalContent>
@@ -259,9 +246,9 @@ const AdminInstitutions = () => {
                   name="cnpj"
                   value={selectedInstitution.cnpj}
                   onChange={handleChange}
-                  placeholder="CNPJ"
-                  isReadOnly // CNPJ não deve ser editável, apenas para leitura
+                  isReadOnly // CNPJ should be read-only
                   sx={{
+                    // Styling for hover and focus states
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",
@@ -276,8 +263,8 @@ const AdminInstitutions = () => {
                   name="name"
                   value={selectedInstitution.name}
                   onChange={handleChange}
-                  placeholder="Institution Name"
                   sx={{
+                    // Styling for hover and focus states
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",
@@ -286,14 +273,14 @@ const AdminInstitutions = () => {
                   }}
                 />
               </InputGroup>
-              <Text>Adress</Text>
+              <Text>Address</Text>
               <InputGroup>
                 <Input
                   name="address"
                   value={selectedInstitution.address}
                   onChange={handleChange}
-                  placeholder="Address"
                   sx={{
+                    // Styling for hover and focus states
                     _hover: { borderColor: "#E11138" },
                     _focus: {
                       borderColor: "#E11138",

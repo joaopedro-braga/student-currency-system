@@ -53,6 +53,7 @@ This project implements a RESTful API for a Student Coin System, designed to inc
 - Postman (for API testing)
 - Swagger (for API documentation)
 
+
 ### Project Structure
 
 The project follows a layered architecture:
@@ -60,6 +61,8 @@ The project follows a layered architecture:
 - **API Layer (Controllers):** Handles HTTP requests, validates input, and delegates to the service layer.
 - **Service Layer (Business Logic):** Implements business rules, manages transactions, and interacts with repositories.
 - **Repository Layer (Data Access):** Provides abstraction over data persistence, using Spring Data JPA to interact with the database.
+
+[Open presentation of the project's architectures and technologies](docs/project-architecture-and-technologies.pdf)
 
 ## Documentation
 
@@ -212,3 +215,6 @@ so that I can manage the available rewards for students.
 
 ![Package Diagram](docs/images/PackageDiagram.png)
 [Access Figma](https://www.figma.com/board/YsDL6sZk87p4KRTDTB4FKq/Package-Diagram---MeritCoin?node-id=0-1&t=mur0yCL6oJoVavC3-1)
+
+### User Flows
+[Access User Flows](https://www.figma.com/proto/uKwCkxCpUFiWfEluTLa7YN/MeritCoin?node-id=16-37&node-type=frame&t=Aw13taVI1jZTPkw0-0&scaling=min-zoom&content-scaling=fixed&page-id=0%3A1&starting-point-node-id=16%3A37&show-proto-sidebar=1)

@@ -1,22 +1,20 @@
-import React from "react";
-import {
-  Card,
-  CardBody,
-  Grid,
-  Box,
-  Button,
-  Stack,
-  InputGroup,
-  InputLeftElement,
-  Input,
+import React from "react"; 
+import { 
+  Button, 
+  Stack, 
+  InputGroup, 
+  InputLeftElement, 
+  Input, 
   InputRightElement,
-  Link,
-  Select,
+  Link, 
+  Select, 
 } from "@chakra-ui/react";
 
+// Functional component for rendering the student sign-up form
 const SignUpStudent = () => {
   return (
     <>
+      {/* Title for the sign-up form */}
       <h1
         style={{
           color: "#E11138",
@@ -30,10 +28,13 @@ const SignUpStudent = () => {
       >
         Sign Up
       </h1>
+
+      {/* Vertical stack for organizing input fields */}
       <Stack spacing={4} style={{ margin: "60px", paddingLeft: "20px" }}>
+        {/* Input field for Social Security Number */}
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
-          </InputLeftElement>
+          <InputLeftElement pointerEvents="none" />{" "}
+          {/* Placeholder for future icons */}
           <Input
             type="cpfRg"
             placeholder="Social Security Number"
@@ -43,6 +44,7 @@ const SignUpStudent = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -52,9 +54,9 @@ const SignUpStudent = () => {
           />
         </InputGroup>
 
+        {/* Input field for Address */}
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
-          </InputLeftElement>
+          <InputLeftElement pointerEvents="none" />
           <Input
             type="adress"
             placeholder="Adress"
@@ -64,6 +66,7 @@ const SignUpStudent = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -71,13 +74,12 @@ const SignUpStudent = () => {
               },
             }}
           />
-          <InputRightElement></InputRightElement>
+          <InputRightElement /> {/* Placeholder for future elements */}
         </InputGroup>
 
+        {/* Dropdown to select the educational institution */}
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
-          </InputLeftElement>
-
+          <InputLeftElement pointerEvents="none" />
           <Select
             placeholder="Select Institution"
             style={{
@@ -86,6 +88,7 @@ const SignUpStudent = () => {
               color: "gray.500",
             }}
             sx={{
+              // Styling for hover and focus states
               pl: "2.5rem",
               pr: "2.5rem",
               _hover: { borderColor: "#E11138" },
@@ -95,18 +98,18 @@ const SignUpStudent = () => {
               },
             }}
           >
+            {/* Options for institutions */}
             <option value="option1">PUC Minas</option>
             <option value="option2">UFMG</option>
           </Select>
-
-          <InputRightElement></InputRightElement>
+          <InputRightElement />
         </InputGroup>
 
+        {/* Input field for Password */}
         <InputGroup>
-          <InputLeftElement pointerEvents="none">
-          </InputLeftElement>
+          <InputLeftElement pointerEvents="none" />
           <Input
-            type="password"
+            type="password" // Password input type to hide characters
             placeholder="Password"
             w="437px"
             style={{
@@ -114,6 +117,7 @@ const SignUpStudent = () => {
               borderRadius: "12px",
             }}
             sx={{
+              // Styling for hover and focus states
               _hover: { borderColor: "#E11138" },
               _focus: {
                 borderColor: "#E11138",
@@ -121,10 +125,11 @@ const SignUpStudent = () => {
               },
             }}
           />
-          <InputRightElement></InputRightElement>
+          <InputRightElement />
         </InputGroup>
       </Stack>
 
+      {/* Footer with a link and register button */}
       <div
         style={{
           display: "flex",
@@ -136,7 +141,8 @@ const SignUpStudent = () => {
           paddingRight: "60px",
         }}
       >
-        <Link></Link>
+        <Link /> {/* Empty link placeholder */}
+        {/* Register button with custom styles */}
         <Button
           style={{
             backgroundColor: "#E11138",
@@ -144,6 +150,7 @@ const SignUpStudent = () => {
             borderRadius: "12px",
           }}
           sx={{
+            // Styling for hover and focus states
             _hover: { borderColor: "#E11138" },
             _focus: {
               borderColor: "#E11138",
