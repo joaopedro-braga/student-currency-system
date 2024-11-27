@@ -14,8 +14,86 @@ import {
 } from "@chakra-ui/react";
 import { EmailIcon, LockIcon } from "@chakra-ui/icons";
 import bg from "../img/bg.png";
+import { useNavigate } from 'react-router-dom';
+import apiService from '../services/apiService.js';
+import { useState } from 'react';
 
 const SignIn = () => {
+
+  const navigate = useNavigate();
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [loginError, setLoginError] = useState(null);
+    const [emailError, setEmailError] = useState(null); 
+    const [passwordError, setPasswordError] = useState(null);
+
+
+  const isEmailValid = () => {
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+  };
+
+  const isPasswordValid = () => {
+    return password.length >= 6; 
+  };
+  
+
+  const handleLogin = async () => {
+
+    if (!isEmailValid()) {
+      setEmailError("Digite um email válido.");
+      return; 
+    }
+
+    if (!isPasswordValid()) {
+      setPasswordError("A senha deve ter pelo menos 6 caracteres.");
+      return;
+    }
+    
+    setEmailError(null);
+    setPasswordError(null);
+
+    try {
+      const response = await apiService.post('/auth/login', {
+        login: email, 
+        password: password,
+      });
+
+      localStorage.setItem('token', response.data.token);
+      localStorage.setItem('role', response.data.role);
+
+      console.log("Login realizado:", response.data);
+
+      switch (response.data.role) {
+      case 'ADMIN':
+        navigate('/admin-benefits');
+        break;
+      case 'STUDENT':
+        navigate('/student-balance');
+        break;
+      case 'PROFESSOR':
+        navigate('/student-balance');
+        break;
+      case 'COMPANY':
+          navigate('/partner-company-benefits');
+          break;
+      default:
+        navigate('/');
+        break;
+      }
+
+    } catch (error) {
+      if (error.response) {
+          setLoginError(error.response.data || "Erro ao fazer login. Verifique suas credenciais.");
+      } else if (error.request){
+          setLoginError("Erro de rede. Verifique sua conexão.");
+      } else {
+          setLoginError("Erro desconhecido. Tente novamente mais tarde.");
+      }
+  }
+  };
+
   return (
     <Box
       height="100vh"
@@ -61,6 +139,8 @@ const SignIn = () => {
                   <Input
                     type="email"
                     placeholder="E-mail"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     w="437px"
                     style={{ backgroundColor: "#ECEEF1", borderRadius: "12px" }}
                     sx={{
@@ -80,6 +160,8 @@ const SignIn = () => {
                   <Input
                     type="password"
                     placeholder="Password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                     w="437px"
                     style={{ backgroundColor: "#ECEEF1", borderRadius: "12px" }}
                     sx={{
@@ -107,6 +189,7 @@ const SignIn = () => {
               >
                 <Link>Forgot your password?</Link>
                 <Button
+                  onClick={handleLogin}
                   style={{
                     backgroundColor: "#E11138",
                     color: "white",
@@ -174,6 +257,7 @@ const SignIn = () => {
               </h3>
               <Box display="flex" justifyContent="flex-end">
                 <Button
+                  onClick={() => navigate('/sign-up')}
                   colorScheme="whiteAlpha"
                   style={{
                     marginRight: "30px",

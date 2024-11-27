@@ -1,5 +1,5 @@
 import { StrictMode } from "react";
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { createBrowserRouter, RouterProvider, Navigate } from "react-router-dom";
 import { ChakraProvider } from "@chakra-ui/react"; 
 import { createRoot } from "react-dom/client";
 import App from "./App.jsx";
@@ -15,12 +15,13 @@ import PartnerCompanyBenefits from "./routes/PartnerCompanyBenefits.jsx";
 import StudentBalence from "./routes/StudentBalence.jsx";
 import StudentBenefits from "./routes/StudentBenefits.jsx";
 import StudentVouchers from "./routes/StudentVouchers.jsx";
+import PrivateRoute from "./components/auth/PrivateRoute.jsx";
 
 // Definição das rotas
 const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element: <Navigate to="/sign-in" />,
   },
   {
     path: "/sign-in",
@@ -32,32 +33,60 @@ const router = createBrowserRouter([
   },
   {
     path: "/admin-benefits",
-    element: <AdminBenefits />,
+    element: (
+      <PrivateRoute allowedRoles={['ADMIN']}>
+        <AdminBenefits />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/admin-institutions",
-    element: <AdminInstitutions />,
+    element: (
+      <PrivateRoute allowedRoles={['ADMIN']}>
+        <AdminInstitutions />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/admin-professors",
-    element: <AdminProfessors />,
+    element: (
+      <PrivateRoute allowedRoles={['ADMIN']}>
+        <AdminProfessors />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/partner-company-benefits",
-    element: <PartnerCompanyBenefits />,
+    element: (
+      <PrivateRoute allowedRoles={['COMPANY']}>
+        <PartnerCompanyBenefits />
+      </PrivateRoute>
+    ),
   },
   {
-    path: "/student-balence",
-    element: <StudentBalence />,
+    path: "/student-balence", 
+    element: (
+      <PrivateRoute allowedRoles={['STUDENT']}>
+        <StudentBalence />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/student-benefits",
-    element: <StudentBenefits />,
+    element: (
+      <PrivateRoute allowedRoles={['STUDENT']}>
+        <StudentBenefits />
+      </PrivateRoute>
+    ),
   },
   {
     path: "/student-vouchers",
-    element: <StudentVouchers />,
-  }
+    element: (
+      <PrivateRoute allowedRoles={['STUDENT']}>
+        <StudentVouchers />
+      </PrivateRoute>
+    ),
+  },
 ]);
 
 // Renderização do app
