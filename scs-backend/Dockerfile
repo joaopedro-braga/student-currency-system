@@ -1,6 +1,19 @@
-FROM openjdk:17-jdk-alpine
-VOLUME /tmp
-WORKDIR / 
-COPY target/*.jar app.jar
+FROM maven:3.8.4-openjdk-17-slim AS build  
+
+WORKDIR /app
+
+COPY scs-backend/pom.xml .  
+COPY scs-backend/src ./src      
+
+RUN mvn dependency:go-offline -B 
+RUN mvn package -DskipTests       
+
+FROM openjdk:17-jdk-slim        
+
+WORKDIR /app
+
+COPY --from=build /app/target/*.jar app.jar 
+
 EXPOSE 8080
-ENTRYPOINT ["java", "-Djava.net.preferIPv4Stack=true", "-jar", "/app.jar", "-Dserver.address=0.0.0.0"]
+
+CMD ["java", "-jar", "app.jar"]
