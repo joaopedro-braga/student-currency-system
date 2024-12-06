@@ -3,20 +3,27 @@ package com.lds.student_currency_system.domain.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.lds.student_currency_system.application.dto.ProfessorRequest;
+import com.lds.student_currency_system.application.dto.ProfessorResponse;
+import com.lds.student_currency_system.application.dto.TransferRequest;
+import com.lds.student_currency_system.application.dto.TransferResponse;
 import com.lds.student_currency_system.domain.model.Professor;
-import com.lds.student_currency_system.domain.model.Student;
-import com.lds.student_currency_system.domain.model.Transfer;
 
 public interface ProfessorService {
-    Professor save(Professor professor);
+    ProfessorResponse createProfessor(ProfessorRequest professor);
 
-    Optional<Professor> findById(Long id);
+    Optional<ProfessorResponse> findById(Long id);
 
-    List<Professor> findAll();
+    List<ProfessorResponse> findAll();
 
     void deleteById(Long id);
 
-    Professor update(Professor professor);
+    ProfessorResponse update(Long id, ProfessorRequest professorRequest);
 
-    Transfer makeTransfer(Long professorId, Transfer transfer, Student student) throws Exception;
+    Professor findByUsername(String username);
+
+    void aumentarSalarioProfessores();
+
+    public TransferResponse makeTransfer(Professor sender, TransferRequest request);
+
 }
