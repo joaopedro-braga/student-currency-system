@@ -48,4 +48,9 @@ public class UserServiceImpl implements UserService {
         }
         throw new RuntimeException("User not found!");
     }
+
+    @Override
+    public boolean existByEmail(String email) {
+        return userRepository.existsByEmail(email);
+    }
 }

@@ -29,7 +29,7 @@ public class SecurityConfig {
                     .frameOptions(frameOptions -> frameOptions.sameOrigin()) 
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**", "/api/auth/**").permitAll()
+                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**", "/api/auth/**", "/api/vouchers/use/**", "/api/vouchers/validate/**").permitAll()
                         .requestMatchers("/api/admins").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/institutions", "/api/professors", "/api/users").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/api/institutions", "/api/professors").hasRole("ADMIN")
