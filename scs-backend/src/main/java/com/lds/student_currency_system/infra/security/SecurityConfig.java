@@ -23,12 +23,14 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         return  httpSecurity
+                .cors(cors -> cors.disable())
                 .csrf(csrf -> csrf.disable())
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .headers(headers -> headers
                     .frameOptions(frameOptions -> frameOptions.sameOrigin()) 
                 )
                 .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/v3/api-docs/**", "/h2-console/**", "/api/auth/**", "/api/vouchers/use/**", "/api/vouchers/validate/**").permitAll()
                         .requestMatchers("/api/admins").hasRole("ADMIN")
                         .requestMatchers(HttpMethod.POST, "/api/institutions", "/api/professors", "/api/users").hasRole("ADMIN")
