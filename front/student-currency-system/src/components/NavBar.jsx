@@ -5,7 +5,6 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import AccountCircle from "@mui/icons-material/AccountCircle";
 import Switch from "@mui/material/Switch";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormGroup from "@mui/material/FormGroup";
@@ -77,11 +76,6 @@ const NavBar = () => {
     navigate("/student-vouchers");
     onClose();
   };
-
-  const goToStudentTransfers = () => {
-    navigate("/student-transfers");
-    onClose();
-  }
 
   return (
     <>
@@ -164,12 +158,6 @@ const NavBar = () => {
                       onClick={goToStudentVouchers}
                     >
                       Student Vouchers
-                    </p>
-                    <p
-                      style={{ margin: "5px", cursor: "pointer" }}
-                      onClick={goToStudentVouchers}
-                    >
-                      Student Transfers
                     </p>
                   </DrawerBody>
                 </DrawerContent>

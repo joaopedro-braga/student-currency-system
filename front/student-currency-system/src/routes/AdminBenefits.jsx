@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import NavBar from "../components/NavBar"; 
-import bg from "../img/bg.png"; 
+import NavBar from "../components/NavBar";
+import bg from "../img/bg.png";
 import {
   Box,
   Grid,
@@ -27,18 +27,32 @@ import {
   Td,
   TableContainer,
   Text,
-} from "@chakra-ui/react"; 
+} from "@chakra-ui/react";
 
 import { SearchIcon, DeleteIcon } from "@chakra-ui/icons";
 import { FiEdit } from "react-icons/fi";
-import RegisterProfessorModal from "../components/RegisterProfessorModal"; 
 
-// Defining the AdminBenefits component
 const AdminBenefits = () => {
-  // Handling modal state for opening and closing
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [newBenefit, setNewBenefit] = useState({
+    image: "",
+    name: "",
+    description: "",
+    value: "",
+    end: "",
+  });
 
-  // State to manage the selected benefit for editing
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewBenefit((prev) => ({ ...prev, [name]: value }));
+  };
+
+  const handleSave = () => {
+    console.log("Benefit Saved:", newBenefit);
+    // Add logic to save the benefit
+    onClose();
+  };
+
   const [selectedBenefit, setSelectedBenefit] = useState({
     name: "",
     price: "",
@@ -46,20 +60,17 @@ const AdminBenefits = () => {
     institution: "",
   });
 
-  // Handling state for the edit modal
   const {
     isOpen: isEditOpen,
     onOpen: onEditOpen,
     onClose: onEditClose,
   } = useDisclosure();
 
-  // Function to open the edit modal with the selected benefit data
   const handleEditClick = (benefit) => {
     setSelectedBenefit(benefit);
     onEditOpen();
   };
 
-  // Function to update the selected benefit's properties as the user types
   const handleChange = (e) => {
     const { name, value } = e.target;
     setSelectedBenefit((prev) => ({ ...prev, [name]: value }));
@@ -67,10 +78,9 @@ const AdminBenefits = () => {
 
   return (
     <>
-      <NavBar /> {/* Navigation bar component */}
+      <NavBar />
       <div style={{ margin: "30px" }}>
         <Grid templateColumns="20% 1fr" gap={6}>
-          {/* Box for the benefits registration section */}
           <Box
             bgImage={`url(${bg})`}
             bgRepeat="no-repeat"
@@ -107,20 +117,134 @@ const AdminBenefits = () => {
             </Button>
           </Box>
 
-          {/* Modal for registering a professor */}
           <Modal isOpen={isOpen} onClose={onClose} isCentered>
             <ModalOverlay />
             <ModalContent>
               <ModalHeader style={{ color: "#E11138", fontWeight: "600" }}>
-                Register Professor
+                Register Benefit
               </ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                {/* Professor registration form */}
-                <RegisterProfessorModal />
+                <Stack spacing={4}>
+                  <Text>Image URL</Text>
+                  <InputGroup>
+                    <Input
+                      name="image"
+                      sx={{
+                        // Styling for hover and focus states
+                        _hover: { borderColor: "#E11138" },
+                        _focus: {
+                          borderColor: "#E11138",
+                          boxShadow: "0 0 0 1px #E11138",
+                        },
+                      }}
+                      value={newBenefit.image}
+                      onChange={handleInputChange}
+                      placeholder="Image URL"
+                      style={{
+                        backgroundColor: "#ECEEF1",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </InputGroup>
+
+                  <Text>Benefit Name</Text>
+                  <InputGroup>
+                    <Input
+                      name="name"
+                      sx={{
+                        // Styling for hover and focus states
+                        _hover: { borderColor: "#E11138" },
+                        _focus: {
+                          borderColor: "#E11138",
+                          boxShadow: "0 0 0 1px #E11138",
+                        },
+                      }}
+                      value={newBenefit.name}
+                      onChange={handleInputChange}
+                      placeholder="Benefit Name"
+                      style={{
+                        backgroundColor: "#ECEEF1",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </InputGroup>
+
+                  <Text>Benefit Description</Text>
+                  <InputGroup>
+                    <Input
+                      sx={{
+                        // Styling for hover and focus states
+                        _hover: { borderColor: "#E11138" },
+                        _focus: {
+                          borderColor: "#E11138",
+                          boxShadow: "0 0 0 1px #E11138",
+                        },
+                      }}
+                      name="description"
+                      value={newBenefit.description}
+                      onChange={handleInputChange}
+                      placeholder="Benefit Description"
+                      style={{
+                        backgroundColor: "#ECEEF1",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </InputGroup>
+
+                  <Text>Benefit Value</Text>
+                  <InputGroup>
+                    <Input
+                      sx={{
+                        // Styling for hover and focus states
+                        _hover: { borderColor: "#E11138" },
+                        _focus: {
+                          borderColor: "#E11138",
+                          boxShadow: "0 0 0 1px #E11138",
+                        },
+                      }}
+                      name="value"
+                      value={newBenefit.value}
+                      onChange={handleInputChange}
+                      placeholder="Benefit Value"
+                      style={{
+                        backgroundColor: "#ECEEF1",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </InputGroup>
+
+                  <Text>Benefit End Date</Text>
+                  <InputGroup>
+                    <Input
+                      sx={{
+                        // Styling for hover and focus states
+                        _hover: { borderColor: "#E11138" },
+                        _focus: {
+                          borderColor: "#E11138",
+                          boxShadow: "0 0 0 1px #E11138",
+                        },
+                      }}
+                      name="end"
+                      type="date"
+                      value={newBenefit.end}
+                      onChange={handleInputChange}
+                      placeholder="Benefit End Date"
+                      style={{
+                        backgroundColor: "#ECEEF1",
+                        borderRadius: "8px",
+                      }}
+                    />
+                  </InputGroup>
+                </Stack>
               </ModalBody>
               <ModalFooter>
-                <Button backgroundColor="#E11138" color="white" mr={3}>
+                <Button
+                  backgroundColor="#E11138"
+                  color="white"
+                  mr={3}
+                  onClick={handleSave}
+                >
                   Save
                 </Button>
                 <Button onClick={onClose}>Cancel</Button>
@@ -128,7 +252,6 @@ const AdminBenefits = () => {
             </ModalContent>
           </Modal>
 
-          {/* Table to display benefits */}
           <Box
             padding="30px"
             border="1px solid #00000033"
@@ -150,7 +273,6 @@ const AdminBenefits = () => {
                     placeholder="Enter the educational institution"
                     style={{ paddingLeft: "50px" }}
                     sx={{
-                      // Styling for hover and focus states
                       _hover: { borderColor: "#E11138" },
                       _focus: {
                         borderColor: "#E11138",
@@ -178,7 +300,6 @@ const AdminBenefits = () => {
                   </Tr>
                 </Thead>
                 <Tbody>
-                  {/* Mapping through hardcoded benefits */}
                   {[
                     {
                       image: "https://via.placeholder.com/150",
@@ -219,7 +340,6 @@ const AdminBenefits = () => {
                           margin="8px"
                           onClick={() => handleEditClick(benefit)}
                         >
-                          {/* Edit button */}
                           <FiEdit />
                         </Button>
                         <Button
@@ -227,7 +347,6 @@ const AdminBenefits = () => {
                           backgroundColor="white"
                           color="#E11138"
                         >
-                          {/* Delete button */}
                           <DeleteIcon />
                         </Button>
                       </Td>
@@ -239,66 +358,6 @@ const AdminBenefits = () => {
           </Box>
         </Grid>
       </div>
-      {/* Edit Benefit Modal */}
-      <Modal isOpen={isEditOpen} onClose={onEditClose} isCentered>
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader style={{ color: "#E11138", fontWeight: "600" }}>
-            Edit Benefit
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Stack spacing={4}>
-              <Text>Name</Text>
-              <InputGroup>
-                <Input
-                  name="name"
-                  value={selectedBenefit.name}
-                  onChange={handleChange}
-                  placeholder="Name"
-                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
-                />
-              </InputGroup>
-              <Text>Price</Text>
-              <InputGroup>
-                <Input
-                  name="price"
-                  value={selectedBenefit.price}
-                  onChange={handleChange}
-                  placeholder="Price"
-                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
-                />
-              </InputGroup>
-              <Text>Institution</Text>
-              <InputGroup>
-                <Input
-                  name="institution"
-                  value={selectedBenefit.institution}
-                  onChange={handleChange}
-                  placeholder="Institution"
-                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
-                />
-              </InputGroup>
-              <Text>Description</Text>
-              <InputGroup>
-                <Input
-                  name="description"
-                  value={selectedBenefit.description}
-                  onChange={handleChange}
-                  placeholder="Description"
-                  style={{ backgroundColor: "#ECEEF1", borderRadius: "8px" }}
-                />
-              </InputGroup>
-            </Stack>
-          </ModalBody>
-          <ModalFooter>
-            <Button backgroundColor="#E11138" color="white" mr={3}>
-              Save Changes
-            </Button>
-            <Button onClick={onEditClose}>Cancel</Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
     </>
   );
 };
