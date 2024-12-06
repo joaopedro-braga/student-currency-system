@@ -3,16 +3,22 @@ package com.lds.student_currency_system.domain.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.lds.student_currency_system.domain.model.Student;
 import com.lds.student_currency_system.domain.model.Voucher;
 
 public interface VoucherService {
-    Voucher save(Voucher voucher);
+    public Voucher createVoucher(Long idAdvantage, Student student);
 
     Optional<Voucher> findById(Long id);
 
-    List<Voucher> findAll();
+    List<Voucher> findAll(Student student);
+
+    List<Voucher> findAllActive(Student student);
+
+    List<Voucher> findAllRedeemed(Student student);
+
+    Voucher markAsUsed(Long idVoucher);
 
     void deleteById(Long id);
 
-    Voucher update(Voucher voucher);
 }
