@@ -68,8 +68,6 @@ public class VoucherServiceImpl implements VoucherService {
         Date validity = Date.valueOf(LocalDate.now().plusMonths(3));
         String qrcode = "https://sqdbpldndwyesovwwijy.supabase.co/storage/v1/object/public/qrcode/qrcode.png";
 
-        System.out.println("\n\n\n\nQrcode: " + qrcode);
-
         return new Voucher(
             code,
             qrcode,

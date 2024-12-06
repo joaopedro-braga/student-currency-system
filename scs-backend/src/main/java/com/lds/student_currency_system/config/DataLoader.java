@@ -32,6 +32,5 @@ public class DataLoader implements CommandLineRunner {
 
         var usernamePassword = new UsernamePasswordAuthenticationToken("admin@mail.com", "1234");
         var user = (User) this.authenticationManager.authenticate(usernamePassword).getPrincipal();
-        System.out.println("token: " + tokenService.generateToken(user));
     }
 }
