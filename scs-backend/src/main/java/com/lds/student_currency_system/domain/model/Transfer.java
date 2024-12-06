@@ -1,5 +1,6 @@
 package com.lds.student_currency_system.domain.model;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -36,11 +37,11 @@ public class Transfer {
     @Column(nullable = false)
     private LocalDateTime date;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE) 
     @JoinColumn(name = "sender_id", nullable = false)
     private User sender;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.REMOVE)  
     @JoinColumn(name = "receiver_id", nullable = false)
     private User receiver;
 
