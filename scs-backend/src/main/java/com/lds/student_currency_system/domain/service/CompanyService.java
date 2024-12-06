@@ -3,16 +3,20 @@ package com.lds.student_currency_system.domain.service;
 import java.util.List;
 import java.util.Optional;
 
+import com.lds.student_currency_system.application.dto.CompanyRequest;
+import com.lds.student_currency_system.application.dto.CompanyResponse;
 import com.lds.student_currency_system.domain.model.Company;
 
 public interface CompanyService {
-    Company save(Company company);
+    Company save(CompanyRequest company);
 
-    Optional<Company> findById(Long id);
+    Optional<CompanyResponse> findById(Long id);
 
-    List<Company> findAll();
+    Optional<Company> findByEmail(String cnpj);
+
+    List<CompanyResponse> findAll();
 
     void deleteById(Long id);
 
-    Company update(Company company);
+    CompanyResponse update(Long id, CompanyRequest company);
 }
