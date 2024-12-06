@@ -1,6 +1,9 @@
 package com.lds.student_currency_system.domain.service.impl;
 
 import com.lds.student_currency_system.infra.repositories.InstitutionRepository;
+import com.lds.student_currency_system.application.dto.InstitutionRequest;
+import com.lds.student_currency_system.application.dto.InstitutionResponse;
+import com.lds.student_currency_system.application.mapper.InstitutionMapper;
 import com.lds.student_currency_system.domain.model.Institution;
 import com.lds.student_currency_system.domain.service.InstitutionService;
 
@@ -17,18 +20,29 @@ public class InstitutionServiceImpl implements InstitutionService {
     private final InstitutionRepository institutionRepository;
 
     @Override
-    public Institution save(Institution institution) {
-        return institutionRepository.save(institution);
+    public InstitutionResponse save(InstitutionRequest institutionRequest) {
+        if(institutionRepository.existsByEmail(institutionRequest.email()))
+            throw new RuntimeException("Email already in use!");
+            
+        Institution institution = InstitutionMapper.toInstitution(institutionRequest);
+        return InstitutionMapper.toInstitutionResponse(institutionRepository.save(institution));
     }
 
     @Override
-    public Optional<Institution> findById(Long id) {
-        return institutionRepository.findById(id);
+    public Optional<InstitutionResponse> findById(Long id) {
+        Optional<Institution> institutionOpt = institutionRepository.findById(id);
+
+        if (institutionOpt.isPresent()) {
+            InstitutionResponse response = InstitutionMapper.toInstitutionResponse(institutionOpt.get());
+            return Optional.of(response); 
+        }
+
+        return Optional.empty();
     }
 
     @Override
-    public List<Institution> findAll() {
-        return institutionRepository.findAll();
+    public List<InstitutionResponse> findAll() {
+        return InstitutionMapper.toInstitutionResponseList(institutionRepository.findAll());
     }
 
     @Override
@@ -37,9 +51,13 @@ public class InstitutionServiceImpl implements InstitutionService {
     }
 
     @Override
-    public Institution update(Institution institution) {
+    public InstitutionResponse update(Long id, InstitutionRequest institutionRequest) {
+
+        Institution institution = InstitutionMapper.toInstitution(institutionRequest);
+        institution.setId(id);
+
         if(institutionRepository.existsById(institution.getId())) {
-            return institutionRepository.save(institution);
+            return InstitutionMapper.toInstitutionResponse(institutionRepository.save(institution));
         }
         throw new RuntimeException("Institution not found!");
     }

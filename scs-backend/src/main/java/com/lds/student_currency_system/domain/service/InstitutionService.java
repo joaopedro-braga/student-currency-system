@@ -3,16 +3,18 @@ package com.lds.student_currency_system.domain.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.lds.student_currency_system.domain.model.Institution;
+import com.lds.student_currency_system.application.dto.InstitutionRequest;
+import com.lds.student_currency_system.application.dto.InstitutionResponse;
+
 
 public interface InstitutionService {
-    Institution save(Institution institution);
+    InstitutionResponse save(InstitutionRequest institution);
 
-    Optional<Institution> findById(Long id);
+    Optional<InstitutionResponse> findById(Long id);
 
-    List<Institution> findAll();
+    List<InstitutionResponse> findAll();
 
     void deleteById(Long id);
 
-    Institution update(Institution institution);
+    InstitutionResponse update(Long id, InstitutionRequest institution);
 }

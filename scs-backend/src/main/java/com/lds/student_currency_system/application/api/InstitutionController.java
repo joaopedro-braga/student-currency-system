@@ -12,7 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.lds.student_currency_system.domain.model.Institution;
+import com.lds.student_currency_system.application.dto.InstitutionRequest;
+import com.lds.student_currency_system.application.dto.InstitutionResponse;
 import com.lds.student_currency_system.domain.service.InstitutionService;
 
 import java.util.List;
@@ -25,34 +26,33 @@ public class InstitutionController {
     private final InstitutionService institutionService;
 
     @PostMapping
-    public ResponseEntity<Institution> createInstitution(@RequestBody Institution institution) {
-        Institution savedInstitution = institutionService.save(institution);
+    public ResponseEntity<InstitutionResponse> createInstitution(@RequestBody InstitutionRequest institutionRequest) {
+        InstitutionResponse savedInstitution = institutionService.save(institutionRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(savedInstitution);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Institution> getInstitutionById(@PathVariable Long id) {
+    public ResponseEntity<InstitutionResponse> getInstitutionById(@PathVariable Long id) {
         return institutionService.findById(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
     }
 
     @GetMapping
-    public ResponseEntity<List<Institution>> getAllInstitutions() {
-        List<Institution> institutions = institutionService.findAll();
+    public ResponseEntity<List<InstitutionResponse>> getAllInstitutions() {
+        List<InstitutionResponse> institutions = institutionService.findAll();
         return ResponseEntity.ok(institutions);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Institution> updateInstitution(@PathVariable Long id, @RequestBody Institution institution) {
-        institution.setId(id);
-        Institution updatedInstitution = institutionService.update(institution);
+    public ResponseEntity<InstitutionResponse> updateInstitution(@PathVariable Long id, @RequestBody InstitutionRequest institutionRequest) {
+        InstitutionResponse updatedInstitution = institutionService.update(id, institutionRequest);
         return ResponseEntity.ok(updatedInstitution);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteInstitution(@PathVariable Long id) {
         institutionService.deleteById(id);
-        return ResponseEntity.noContent().build();
+        return ResponseEntity.ok().build();
     }
 }

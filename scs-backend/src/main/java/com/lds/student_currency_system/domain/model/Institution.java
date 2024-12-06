@@ -1,11 +1,11 @@
 package com.lds.student_currency_system.domain.model;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -15,16 +15,15 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class Institution {
+@AllArgsConstructor
+public class Institution extends Company{
 
-    public Institution(String name) {
-        this.name = name;
+    public Institution(String name, String email, String password, String cnpj, String address) {
+        super(name, email, password, cnpj, address);
     }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    @Column(nullable = false)
-    private String name;
+    
 }
