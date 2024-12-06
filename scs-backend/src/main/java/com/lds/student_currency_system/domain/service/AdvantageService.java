@@ -3,16 +3,21 @@ package com.lds.student_currency_system.domain.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.lds.student_currency_system.domain.model.Advantage;
+import com.lds.student_currency_system.application.dto.AdvantageRequest;
+import com.lds.student_currency_system.application.dto.AdvantageResponse;
+import com.lds.student_currency_system.domain.model.Company;
 
 public interface AdvantageService {
-    Advantage save(Advantage advantage);
+    AdvantageResponse save(AdvantageRequest advantage);
 
-    Optional<Advantage> findById(Long id);
+    Optional<AdvantageResponse> findById(Long id);
 
-    List<Advantage> findAll();
+    List<AdvantageResponse> findAll();
 
     void deleteById(Long id);
 
-    Advantage update(Advantage advantage);
+    AdvantageResponse update(Long id, AdvantageRequest advantage);
+
+    List<AdvantageResponse> findAllByCompany(Company company);
+
 }

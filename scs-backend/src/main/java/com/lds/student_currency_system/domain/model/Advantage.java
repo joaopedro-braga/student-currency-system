@@ -12,7 +12,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "advantages")
@@ -35,21 +35,21 @@ public class Advantage {
     private float price;
 
     @ManyToOne
-    @JoinColumn(name = "company_id", nullable = false)
+    @JoinColumn(name = "company_id", nullable = true)
     private Company company;
 
     @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
-    private Date date;
+    private LocalDateTime date;
 
-    public Advantage(String name, String image, float price, Company company, String description, Date date) {
+    public Advantage(String name, String image, float price, Company company, String description) {
         this.name = name;
         this.image = image;
         this.price = price;
         this.company = company;
         this.description = description;
-        this.date = date;
+        this.date = LocalDateTime.now();
     }
 }
