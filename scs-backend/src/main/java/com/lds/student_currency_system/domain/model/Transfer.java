@@ -11,7 +11,8 @@ import jakarta.persistence.Table;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import java.util.Date;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "transfers")
@@ -20,11 +21,11 @@ import java.util.Date;
 @NoArgsConstructor
 public class Transfer {
 
-    public Transfer(Date date, User transactor, float coinQuantity, String type, String description) {
-        this.date = date;
-        this.transactor = transactor;
+    public Transfer(User sender, User receiver, float coinQuantity, String description) {
+        this.date = LocalDateTime.now();
+        this.sender = sender;
+        this.receiver = receiver;
         this.coinQuantity = coinQuantity;
-        this.type = type;
         this.description = description;
     }
 
@@ -33,17 +34,18 @@ public class Transfer {
     private Long id;
 
     @Column(nullable = false)
-    private Date date;
+    private LocalDateTime date;
 
     @ManyToOne
-    @JoinColumn(name = "transactor_id", nullable = false)
-    private User transactor;
+    @JoinColumn(name = "sender_id", nullable = false)
+    private User sender;
+
+    @ManyToOne
+    @JoinColumn(name = "receiver_id", nullable = false)
+    private User receiver;
 
     @Column(name = "coin_quantity", nullable = false)
     private float coinQuantity;
-
-    @Column(nullable = false)
-    private String type;
 
     @Column(nullable = false)
     private String description;

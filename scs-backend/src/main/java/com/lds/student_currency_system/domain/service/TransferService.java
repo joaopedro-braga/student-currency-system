@@ -3,16 +3,14 @@ package com.lds.student_currency_system.domain.service;
 import java.util.List;
 import java.util.Optional;
 
-import com.lds.student_currency_system.domain.model.Transfer;
+import com.lds.student_currency_system.application.dto.TransferResponse;
+import com.lds.student_currency_system.domain.model.User;
 
 public interface TransferService {
-    Transfer save(Transfer transfer);
 
-    Optional<Transfer> findById(Long id);
+    Optional<TransferResponse> findById(Long id);
 
-    List<Transfer> findAll();
+    List<TransferResponse> findAllByTransactor(User user);
 
-    void deleteById(Long id);
-
-    Transfer update(Transfer transfer);
+    List<TransferResponse> findAll();
 }

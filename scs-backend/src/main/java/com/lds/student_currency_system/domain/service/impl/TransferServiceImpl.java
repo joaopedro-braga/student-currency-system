@@ -1,7 +1,10 @@
 package com.lds.student_currency_system.domain.service.impl;
 
 import com.lds.student_currency_system.infra.repositories.TransferRepository;
+import com.lds.student_currency_system.application.dto.TransferResponse;
+import com.lds.student_currency_system.application.mapper.TransferMapper;
 import com.lds.student_currency_system.domain.model.Transfer;
+import com.lds.student_currency_system.domain.model.User;
 import com.lds.student_currency_system.domain.service.TransferService;
 
 import lombok.RequiredArgsConstructor;
@@ -17,30 +20,27 @@ public class TransferServiceImpl implements TransferService {
     private final TransferRepository transferRepository;
 
     @Override
-    public Transfer save(Transfer transfer) {
-        return transferRepository.save(transfer);
-    }
+    public Optional<TransferResponse> findById(Long id) {
+        Optional<Transfer> transferOpt = transferRepository.findById(id);
 
-    @Override
-    public Optional<Transfer> findById(Long id) {
-        return transferRepository.findById(id);
-    }
-
-    @Override
-    public List<Transfer> findAll() {
-        return transferRepository.findAll();
-    }
-
-    @Override
-    public void deleteById(Long id) {
-        transferRepository.deleteById(id);
-    }
-
-    @Override
-    public Transfer update(Transfer transfer) {
-        if(transferRepository.existsById(transfer.getId())) {
-            return transferRepository.save(transfer);
+        if (transferOpt.isPresent()) {
+            TransferResponse response = TransferMapper.toTransferResponse(transferOpt.get(), id);
+            return Optional.of(response);
         }
-        throw new RuntimeException("Transfer not found!");
+
+        return Optional.empty();
     }
+
+    @Override
+    public List<TransferResponse> findAllByTransactor(User user) {
+        List<Transfer> transfers = transferRepository.findAllByReceiverIdOrSenderId(user.getId(), user.getId());
+        return TransferMapper.toTransferResponseList(transfers, user.getId());
+    }
+
+    @Override
+    public List<TransferResponse> findAll() {
+        List<Transfer> transfers = transferRepository.findAll();
+        return TransferMapper.toTransferResponseList(transfers, null);
+    }
+
 }
